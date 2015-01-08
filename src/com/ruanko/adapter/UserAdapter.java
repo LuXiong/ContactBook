@@ -10,16 +10,18 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.ruanko.contactbook.R;
-import com.ruanko.model.User;
+import com.ruanko.model.Contact;
 
 public class UserAdapter extends BaseAdapter {
 
-	private List<User> users;
+
+
+	private List<Contact> users;
 	private int resource;//绑定条目
 	private LayoutInflater inflater; //生成xml对应的view对象
 	
 
-	public UserAdapter(Context context,List<User> users,int resource) {
+	public UserAdapter(Context context,List<Contact> users,int resource) {
 		this.users = users;
 		this.resource = resource;
 		inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -55,7 +57,7 @@ public class UserAdapter extends BaseAdapter {
 			ViewCache cache = (ViewCache)convertView.getTag();
 			nameView = cache.nameView;
 		}
-		User user = users.get(position);
+		Contact user = users.get(position);
 		nameView.setText(user.getName());//绑定数据
 		
 		return convertView;

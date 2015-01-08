@@ -1,15 +1,22 @@
 package com.ruanko.activity;
 
+import java.util.List;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
-import com.ruanko.bussiness.UserBussiness;
+import com.ruanko.adapter.UserAdapter;
+import com.ruanko.bussiness.ContactBussiness;
 import com.ruanko.contactbook.BaseActivity;
 import com.ruanko.contactbook.R;
+import com.ruanko.listener.DataBaseListener;
+import com.ruanko.model.Contact;
 //import com.ruanko.adapter.UserAdapter;
 
 //import com.ruanko.model.User;
@@ -23,9 +30,32 @@ public class MainActivity extends BaseActivity {
 		setContentView(R.layout.activity_main);
 		listView = (ListView) this.findViewById(R.id.listView);
 		listView.setOnItemClickListener(new ItemClickListener());
-		// show();
+		show();
 
-		UserBussiness ub = new UserBussiness();
+		ContactBussiness ub = new ContactBussiness();
+		ub.loadLocalContacts(this, new DataBaseListener() {
+
+			@Override
+			public void onStart() {
+				Log.v("xionglu", "loadContacts start");
+			}
+
+			@Override
+			public void onSuccess() {
+				Log.v("xionglu", "loadContacts success");
+			}
+
+			@Override
+			public void onFinish() {
+				Log.v("xionglu", "loadContacts finish");
+			}
+
+			@Override
+			public void onFailure(String info) {
+				Log.v("xionglu", "loadContacts failure:" + info);
+			}
+
+		});
 	}
 
 	private final class ItemClickListener implements OnItemClickListener {
@@ -34,24 +64,21 @@ public class MainActivity extends BaseActivity {
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			ListView lView = (ListView) parent;// 页面
-			// User user = (User)lView.getItemAtPosition(position);
-			// Toast.makeText(getApplicationContext(), user.getId().toString(),
-			// 1).show();
+			Contact user = (Contact) lView.getItemAtPosition(position);
+			Toast.makeText(getApplicationContext(), String.valueOf(position), 1)
+					.show();
 
 		}
 
 	}
 
 	// 自定义适配器
-	// private void show() {
-	// List<User> users = null;
-	// UserAdapter adapter = new UserAdapter(this,users,R.layout.item);
-	//
-	//
-	// =======
-	// Log.v("wq","hi contactbook");
-	// >>>>>>> df47959676b0d7725118996bbbad1e6c765345f1
-	// }
+	private void show() {
+		List<Contact> users = null;
+		UserAdapter adapter = new UserAdapter(this, users, R.layout.item);
+
+		Log.v("wq", "hi contactbook");
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

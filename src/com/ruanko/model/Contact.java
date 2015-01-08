@@ -1,5 +1,8 @@
 package com.ruanko.model;
 
+import android.provider.ContactsContract.CommonDataKinds.Phone;
+import android.provider.ContactsContract.Contacts.Photo;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -11,17 +14,38 @@ public class Contact {
 	private final static String AVATAR = "avatar";
 	private final static String ADDR = "address";
 
-	@DatabaseField(generatedId = true, columnName = ID)
-	private int id;
-	@DatabaseField(columnName = NAME)
-	private String name;
-	@DatabaseField(columnName = PHONE)
-	private String phone;
-	@DatabaseField(columnName = AVATAR)
-	private String avatar;
+	public static final String[] PHONES_PROJECTION = new String[] {
+			Phone.DISPLAY_NAME, Phone.NUMBER, Photo.PHOTO_URI };
 
-	@DatabaseField(columnName = ADDR)
+	public static final int PHONES_DISPLAY_NAME_INDEX = 0;
+	public static final int PHONES_NUMBER_INDEX = 1;
+	public static final int PHONES_PHOTO_URI_INDEX = 2;
+
+	@DatabaseField(generatedId = true, columnName = ID, canBeNull = false)
+	private int id;
+	@DatabaseField(columnName = NAME, canBeNull = false)
+	private String name;
+	@DatabaseField(columnName = PHONE, canBeNull = true)
+	private String phone;
+	@DatabaseField(columnName = AVATAR, canBeNull = true)
+	private String avatar;
+	@DatabaseField(columnName = ADDR, canBeNull = true)
 	private String addr;
+
+	public Contact() {
+
+	}
+
+	public Contact(String name, String phone) {
+		this(name, phone, null, null);
+	}
+
+	public Contact(String name, String phone, String avatar, String addr) {
+		this.name = name;
+		this.phone = phone;
+		this.avatar = avatar;
+		this.addr = addr;
+	}
 
 	public int getId() {
 		return id;

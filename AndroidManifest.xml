@@ -7,8 +7,13 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="17" />
+    <!-- 读取联系人权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- 拨打电话权限 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
+        android:name="com.ruanko.contactbook.CBApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
