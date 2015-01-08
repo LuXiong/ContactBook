@@ -3,6 +3,7 @@ package com.ruanko.activity;
 import java.util.List;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +26,7 @@ public class MainActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+<<<<<<< HEAD
 		listView = (ListView)this.findViewById(R.id.listView);
 		listView.setOnItemClickListener(new ItemClickListener());
 		show();
@@ -76,6 +78,9 @@ public class MainActivity extends BaseActivity {
 		UserAdapter adapter = new UserAdapter(this,users,R.layout.item);
 		
 		
+=======
+		Log.v("wq","hi contactbook");
+>>>>>>> df47959676b0d7725118996bbbad1e6c765345f1
 	}
 
 	@Override
