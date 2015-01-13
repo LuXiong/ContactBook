@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity {
 	// ×Ô¶¨ÒåÊÊÅäÆ÷
 	private void show() {
 		List<Contact> users = null;
-		UserAdapter adapter = new UserAdapter(this, users, R.layout.item);
+		UserAdapter adapter = new UserAdapter(this, users, R.layout.item_main);
 
 		Log.v("wq", "hi contactbook");
 	}

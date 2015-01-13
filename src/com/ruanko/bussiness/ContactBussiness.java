@@ -34,7 +34,7 @@ public class ContactBussiness {
 							.getString(Contact.PHONES_NUMBER_INDEX);
 					String avatar = phoneCursor
 							.getString(Contact.PHONES_PHOTO_URI_INDEX);
-					Contact contact = new Contact(name, phone, avatar, null);
+					Contact contact = new Contact(name, phone, avatar, null,null);
 
 					Dao<Contact, String> contactDao = helper
 							.getDao(Contact.class);
