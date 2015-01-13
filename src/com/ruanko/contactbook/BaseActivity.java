@@ -12,7 +12,8 @@ import android.widget.SearchView.OnQueryTextListener;
 public class BaseActivity extends FragmentActivity {
 	private ActionBar mActionBar;
 	private MenuItem mSearchItem, mRightItem;
-	private onSearchViewTextChangeListener mListener;
+	private onSearchViewTextChangeListener mSearchViewChangeListener;
+	private OnRightBtnClickListener mRightBtnClickListener;
 
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -59,6 +60,20 @@ public class BaseActivity extends FragmentActivity {
 		return true;
 	}
 
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_bar_right_item:
+			if (mRightBtnClickListener != null) {
+				mRightBtnClickListener.onClick(item);
+			}
+			break;
+		default:
+			break;
+		}
+		return super.onMenuItemSelected(featureId, item);
+	}
+
 	private void findMenu(Menu menu) {
 		mSearchItem = menu.findItem(R.id.action_bar_right_item_search);
 		mRightItem = menu.findItem(R.id.action_bar_right_item);
@@ -75,17 +90,25 @@ public class BaseActivity extends FragmentActivity {
 		public void onSearchViewSubmit(String content);
 	}
 
+	public interface OnRightBtnClickListener {
+		public void onClick(MenuItem item);
+	}
+
 	public void setOnSearchVieTextChangeListener(
 			onSearchViewTextChangeListener l) {
-		this.mListener = l;
+		this.mSearchViewChangeListener = l;
+	}
+
+	public void setOnRightBtnClickListener(OnRightBtnClickListener l) {
+		this.mRightBtnClickListener = l;
 	}
 
 	private OnQueryTextListener searchViewChangeListener = new OnQueryTextListener() {
 
 		@Override
 		public boolean onQueryTextSubmit(String query) {
-			if (mListener != null) {
-				mListener.onSearchViewSubmit(query);
+			if (mSearchViewChangeListener != null) {
+				mSearchViewChangeListener.onSearchViewSubmit(query);
 			}
 
 			return true;// return true to handle this action instead of the
@@ -94,8 +117,8 @@ public class BaseActivity extends FragmentActivity {
 
 		@Override
 		public boolean onQueryTextChange(String newText) {
-			if (mListener != null) {
-				mListener.onSearchViewChanged(newText);
+			if (mSearchViewChangeListener != null) {
+				mSearchViewChangeListener.onSearchViewChanged(newText);
 			}
 
 			return true;// return true to handle this action instead of the
