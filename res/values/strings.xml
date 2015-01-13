@@ -4,11 +4,11 @@
     <string name="app_name">ContactBook</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="avatar"></string>
+    <string name="avatar">导入头像</string>
     <string name="name">姓名 :</string>
     <string name="phone">手机 :</string>
     <string name="email">邮箱 :</string>
     <string name="addr">地址:</string>
     <string name="group">组别 :</string>
-
+    <string name="birthday">生日:</string>
 </resources>
