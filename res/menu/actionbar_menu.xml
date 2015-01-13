@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/acition_bar_right_item_search"
+        android:id="@+id/action_bar_right_item_search"
         android:title="搜索"
         android:showAsAction="ifRoom|collapseActionView"
         android:actionViewClass="android.widget.SearchView"/>
     <item
-        android:id="@+id/acition_bar_right_item"
+        android:id="@+id/action_bar_right_item"
         android:title="新建"
         android:showAsAction="ifRoom"/>
 

@@ -33,9 +33,11 @@
             android:name="com.ruanko.contactbook.BaseActivity"
             android:theme="@style/AppTheme" >
         </activity>
+
         <activity
             android:name="com.ruanko.contactbook.EditActivity" >
         </activity>
+
     </application>
 
 </manifest>
