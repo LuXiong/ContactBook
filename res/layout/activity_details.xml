@@ -3,111 +3,204 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical" 
-    >
-    
-   <ScrollView android:layout_weight="4" android:id="@+id/ScrollView1"
-		android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:scrollbars="vertical">
-<LinearLayout 
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:orientation="vertical">
-			<LinearLayout android:id="@+id/widget205"
-				android:layout_width="fill_parent" android:layout_height="wrap_content"
-				android:layout_marginLeft="10dp" android:layout_marginRight="10dp">
-				
-				<ImageButton android:id="@+id/avatar"
-					android:layout_width="60px" android:layout_height="60px"
-					android:src="@drawable/ic_launcher"
-					android:adjustViewBounds="false"
-					android:scaleType="centerCrop">
-				</ImageButton>
-				<EditText android:id="@+id/name" android:layout_width="fill_parent"
-					android:layout_height="wrap_content" android:scrollbars="vertical"
-					android:hint="姓名" android:gravity="top"
-					android:layout_gravity="center_vertical" />
-			</LinearLayout>
+    android:orientation="vertical" >
 
-		
-			<LinearLayout android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:orientation="vertical"
-				android:layout_marginRight="10dp" android:layout_marginLeft="10dp">
-				<TextView android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:text="手机："
-					android:textSize="20dp" />
-				<EditText android:id="@+id/phone"
-					android:layout_width="fill_parent" android:layout_height="wrap_content"
-					android:scrollbars="vertical" android:gravity="top" android:hint="手机"
-					android:phoneNumber="true" />
-			</LinearLayout>
-			
-			<LinearLayout android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:orientation="vertical"
-				android:layout_marginLeft="10dp" android:layout_marginRight="10dp">
-				<TextView android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:text="生日："
-					android:textSize="20dp" />
-				<EditText android:id="@+id/birthday" android:layout_width="fill_parent"
-					android:layout_height="wrap_content" android:scrollbars="vertical"
-					android:hint="生日" android:gravity="top" />
-			</LinearLayout>
+    <ScrollView
+        android:id="@+id/ScrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:scrollbars="vertical" >
 
-			<LinearLayout android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:orientation="vertical"
-				android:layout_marginLeft="10dp" android:layout_marginRight="10dp">
-				<TextView android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:text="地址："
-					android:textSize="20dp" />
-				<EditText android:id="@+id/address" android:layout_width="fill_parent"
-					android:layout_height="wrap_content" android:scrollbars="vertical"
-					android:hint="地址" android:gravity="top" />
-			</LinearLayout>
-			<LinearLayout android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:orientation="vertical"
-				android:layout_marginLeft="10dp" android:layout_marginRight="10dp">
-				<TextView android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:text="QQ："
-					android:textSize="20dp" />
-				<EditText android:id="@+id/qqnum" android:layout_width="fill_parent"
-					android:layout_height="wrap_content" android:scrollbars="vertical"
-					android:hint="QQ" android:gravity="top" />
-			</LinearLayout>
-			
-			<LinearLayout android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:orientation="vertical"
-				android:layout_marginLeft="10dp" android:layout_marginRight="10dp">
-				<TextView android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:text="E-mail："
-					android:textSize="20dp" />
-				<EditText android:id="@+id/email" android:layout_width="fill_parent"
-					android:layout_height="wrap_content" android:scrollbars="vertical"
-					android:hint="E-mail" android:gravity="top" />
-			</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-	        <LinearLayout android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:orientation="horizontal"
-				android:layout_marginLeft="10dp" android:layout_marginRight="10dp">
-				<TextView android:layout_height="wrap_content"
-					android:layout_width="wrap_content" android:text="删除联系人"
-					android:textSize="20dp" />
-	          <ImageButton android:id="@+id/btn_delete" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:layout_weight="1"
-			android:text="删除" />
-	          </LinearLayout>
-		</LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
 
+                <LinearLayout
+                    android:id="@+id/widget205"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" >
 
-	<LinearLayout 
-		android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:orientation="horizontal">
-		<ImageButton android:id="@+id/btn_call" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:layout_weight="1"
-			android:text="呼叫" />
-	    
-		<ImageButton android:id="@+id/btn_message" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:layout_weight="1"
-			android:text="短信" />
-	</LinearLayout>
-	
-	</ScrollView>
+                    <ImageButton
+                        android:id="@+id/avatar"
+                        android:layout_width="60px"
+                        android:layout_height="60px"
+                        android:adjustViewBounds="false"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_launcher" >
+                    </ImageButton>
+
+                    <EditText
+                        android:id="@+id/name"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="top"
+                        android:hint="姓名"
+                        android:scrollbars="vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="手机："
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/phone"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:hint="手机"
+                        android:phoneNumber="true"
+                        android:scrollbars="vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="生日："
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/birthday"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:hint="生日"
+                        android:scrollbars="vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="地址："
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/address"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:hint="地址"
+                        android:scrollbars="vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="QQ："
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/qqnum"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:hint="QQ"
+                        android:scrollbars="vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="E-mail："
+                        android:textSize="20dp" />
+
+                    <EditText
+                        android:id="@+id/email"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:hint="E-mail"
+                        android:scrollbars="vertical" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="删除联系人"
+                        android:textSize="20dp" />
+
+                    <ImageButton
+                        android:id="@+id/btn_delete"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="删除" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <ImageButton
+                    android:id="@+id/btn_call"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="呼叫" />
+
+                <ImageButton
+                    android:id="@+id/btn_message"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="短信" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

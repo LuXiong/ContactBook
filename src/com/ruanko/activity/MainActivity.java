@@ -35,7 +35,16 @@ public class MainActivity extends BaseActivity {
 		listView = (ListView) this.findViewById(R.id.listView);
 		listView.setOnItemClickListener(new ItemClickListener());
 		show();
-
+		setOnRightBtnClickListener(new OnRightBtnClickListener() {
+			
+			@Override
+			public void onClick(MenuItem item) {
+				Intent intent = new Intent();
+                intent.setClass(MainActivity.this, EditActivity.class);
+                startActivity(intent);
+				
+			}
+		});
 		ContactBussiness ub = new ContactBussiness();
 		ub.loadLocalContacts(this, new DataBaseListener() {
 
@@ -64,36 +73,12 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.actionbar_menu, menu);
-		findMenu(menu);
-		initMenu();
-		return true;
+		boolean result = super.onCreateOptionsMenu(menu);
+		setRightTitle("ÐÂ½¨");
+		return result;
 	}
 	
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.action_bar_right_item:
-		{
-			setContentView(R.layout.activity_editor);
-			item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-				
-				@Override
-				public boolean onMenuItemClick(MenuItem it) {
-					
-			                  Intent intent = new Intent();
-	                          intent.setClass(MainActivity.this, EditActivity.class);
-                              startActivity(intent);
-                              MainActivity.this.finish();
-					return false;
-				}
-			});
-		}
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+
 	
 	
 

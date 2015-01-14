@@ -9,7 +9,6 @@
     
     <item
         android:id="@+id/action_bar_right_item"
-        android:title="新建"
         android:showAsAction="ifRoom"/>
 
 </menu>

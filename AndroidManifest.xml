@@ -35,7 +35,11 @@
         </activity>
 
         <activity
-            android:name="com.ruanko.contactbook.EditActivity" >
+            android:name="com.ruanko.activity.EditActivity" >
+        </activity>
+        <activity
+            android:name="com.ruanko.activity.DetailActivity">
+            
         </activity>
 
     </application>
