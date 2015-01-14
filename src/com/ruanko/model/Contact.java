@@ -2,10 +2,6 @@ package com.ruanko.model;
 
 import java.util.ArrayList;
 
-import android.provider.ContactsContract.CommonDataKinds.Phone;
-import android.provider.ContactsContract.Contacts.Photo;
-
-import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "contact")
@@ -17,6 +13,8 @@ public class Contact {
 
 	private ArrayList<Phone> phones;
 
+	private ArrayList<Im> ims;
+
 	private String avatar;
 
 	private String addr;
@@ -27,6 +25,20 @@ public class Contact {
 
 	public Contact() {
 		this(null, null, null, null, null, null, null);
+	}
+
+	public Contact(String contactId, String name, ArrayList<Phone> phones,
+			ArrayList<Im> ims, String avatar, String addr,
+			ArrayList<String> emails, String groupName) {
+		super();
+		this.contactId = contactId;
+		this.name = name;
+		this.phones = phones;
+		this.ims = ims;
+		this.avatar = avatar;
+		this.addr = addr;
+		this.emails = emails;
+		this.groupName = groupName;
 	}
 
 	public String getContactId() {
@@ -47,6 +59,14 @@ public class Contact {
 
 	public ArrayList<Phone> getPhones() {
 		return phones;
+	}
+
+	public ArrayList<Im> getIms() {
+		return ims;
+	}
+
+	public void setIms(ArrayList<Im> ims) {
+		this.ims = ims;
 	}
 
 	public void setPhones(ArrayList<Phone> phones) {
@@ -101,9 +121,9 @@ public class Contact {
 	@Override
 	public String toString() {
 		return "Contact [contactId=" + contactId + ", name=" + name
-				+ ", phones=" + phones + ", avatar=" + avatar + ", addr="
-				+ addr + ", emails=" + emails + ", groupName=" + groupName
-				+ "]";
+				+ ", phones=" + phones + ", ims=" + ims + ", avatar=" + avatar
+				+ ", addr=" + addr + ", emails=" + emails + ", groupName="
+				+ groupName + "]";
 	}
 
 }

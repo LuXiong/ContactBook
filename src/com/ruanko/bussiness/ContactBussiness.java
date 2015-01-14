@@ -1,24 +1,30 @@
 package com.ruanko.bussiness;
 
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
-import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Data;
-import android.provider.ContactsContract.RawContacts;
 import android.util.Log;
 
-import com.j256.ormlite.dao.Dao;
-import com.ruanko.database.DataBaseHelper;
-import com.ruanko.database.DataBaseHelperManager;
-import com.ruanko.listener.DataBaseListener;
 import com.ruanko.model.Contact;
+import com.ruanko.model.Phone;
 
 public class ContactBussiness {
+	
+	public void fetchContacts(Context context){
+		A
+	}
 	public void fetchContactInformationV2(Context context) {
+
+		ArrayList<Contact> contacts = new ArrayList<Contact>();
+		for (int i = 0; i < 30; i++) {
+			contacts.add(new Contact(String.valueOf(i), "zhouyezi" + i,
+					(new ArrayList<Phone>()), "", "addr" + i, (new ArrayList<String>()),
+					"group" + i));
+		}
 		String id;
 		String mimetype;
 		ContentResolver contentResolver = context.getContentResolver();
