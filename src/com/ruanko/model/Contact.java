@@ -1,5 +1,7 @@
 package com.ruanko.model;
 
+import java.util.ArrayList;
+
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 import android.provider.ContactsContract.Contacts.Photo;
 
@@ -8,55 +10,31 @@ import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "contact")
 public class Contact {
-	private final static String ID = "id";
-	private final static String NAME = "name";
-	private final static String PHONE = "phone";
-	private final static String AVATAR = "avatar";
-	private final static String ADDR = "address";
-	private final static String EMAIL = "email";
-	
-	public static final String[] PHONES_PROJECTION = new String[] {
-			Phone.DISPLAY_NAME, Phone.NUMBER, Photo.PHOTO_URI };
 
-	public static final int PHONES_DISPLAY_NAME_INDEX = 0;
-	public static final int PHONES_NUMBER_INDEX = 1;
-	public static final int PHONES_PHOTO_URI_INDEX = 2;
+	private String contactId;
 
-	@DatabaseField(generatedId = true, columnName = ID, canBeNull = false)
-	private int id;
-	@DatabaseField(columnName = NAME, canBeNull = false)
 	private String name;
-	@DatabaseField(columnName = PHONE, canBeNull = true)
-	private String phone;
-	@DatabaseField(columnName = AVATAR, canBeNull = true)
+
+	private ArrayList<Phone> phones;
+
 	private String avatar;
-	@DatabaseField(columnName = ADDR, canBeNull = true)
+
 	private String addr;
-	@DatabaseField(columnName = EMAIL, canBeNull = true)
-	private String email;
+
+	private ArrayList<String> emails;
+
+	private String groupName;
 
 	public Contact() {
-
+		this(null, null, null, null, null, null, null);
 	}
 
-	public Contact(String name, String phone) {
-		this(name, phone, null, null,null);
+	public String getContactId() {
+		return contactId;
 	}
 
-	public Contact(String name, String phone, String avatar, String addr,String email) {
-		this.name = name;
-		this.phone = phone;
-		this.avatar = avatar;
-		this.addr = addr;
-		this.email = email;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
+	public void setContactId(String contactId) {
+		this.contactId = contactId;
 	}
 
 	public String getName() {
@@ -67,12 +45,12 @@ public class Contact {
 		this.name = name;
 	}
 
-	public String getPhone() {
-		return phone;
+	public ArrayList<Phone> getPhones() {
+		return phones;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setPhones(ArrayList<Phone> phones) {
+		this.phones = phones;
 	}
 
 	public String getAvatar() {
@@ -90,19 +68,42 @@ public class Contact {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	
-	public String getEmail() {
-		return email;
+
+	public ArrayList<String> getEmails() {
+		return emails;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmails(ArrayList<String> emails) {
+		this.emails = emails;
+	}
+
+	public String getGroupName() {
+		return groupName;
+	}
+
+	public void setGroupName(String groupName) {
+		this.groupName = groupName;
+	}
+
+	public Contact(String contactId, String name, ArrayList<Phone> phones,
+			String avatar, String addr, ArrayList<String> emails,
+			String groupName) {
+		super();
+		this.contactId = contactId;
+		this.name = name;
+		this.phones = phones;
+		this.avatar = avatar;
+		this.addr = addr;
+		this.emails = emails;
+		this.groupName = groupName;
 	}
 
 	@Override
 	public String toString() {
-		return "Contact [id=" + id + ", name=" + name + ", phone=" + phone
-				+ ", avatar=" + avatar + ", address=" + addr + "]";
+		return "Contact [contactId=" + contactId + ", name=" + name
+				+ ", phones=" + phones + ", avatar=" + avatar + ", addr="
+				+ addr + ", emails=" + emails + ", groupName=" + groupName
+				+ "]";
 	}
 
 }

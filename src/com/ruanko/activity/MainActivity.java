@@ -45,30 +45,7 @@ public class MainActivity extends BaseActivity {
 				
 			}
 		});
-		ContactBussiness ub = new ContactBussiness();
-		ub.loadLocalContacts(this, new DataBaseListener() {
-
-			@Override
-			public void onStart() {
-				Log.v("xionglu", "loadContacts start");
-			}
-
-			@Override
-			public void onSuccess() {
-				Log.v("xionglu", "loadContacts success");
-			}
-
-			@Override
-			public void onFinish() {
-				Log.v("xionglu", "loadContacts finish");
-			}
-
-			@Override
-			public void onFailure(String info) {
-				Log.v("xionglu", "loadContacts failure:" + info);
-			}
-
-		});
+		
 	}
 
 	@Override

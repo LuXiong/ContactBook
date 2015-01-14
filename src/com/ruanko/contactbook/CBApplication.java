@@ -1,5 +1,8 @@
 package com.ruanko.contactbook;
 
+import com.ruanko.bussiness.ContactBussiness;
+import com.ruanko.bussiness.UserBussiness;
+
 import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -13,6 +16,8 @@ public class CBApplication extends Application {
 	public void onCreate() {
 		Log.v("xionglu", "application created");
 		instance = this;
+		ContactBussiness ub = new ContactBussiness();
+		ub.fetchContactInformationV2(getApplicationContext());
 		super.onCreate();
 	}
 
