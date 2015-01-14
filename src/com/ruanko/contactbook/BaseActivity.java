@@ -52,13 +52,7 @@ public class BaseActivity extends FragmentActivity {
 		mActionBar.setTitle(title);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.actionbar_menu, menu);
-		findMenu(menu);
-		initMenu();
-		return true;
-	}
+	
 
 	@Override
 	public boolean onMenuItemSelected(int featureId, MenuItem item) {
@@ -74,12 +68,12 @@ public class BaseActivity extends FragmentActivity {
 		return super.onMenuItemSelected(featureId, item);
 	}
 
-	private void findMenu(Menu menu) {
+	protected void findMenu(Menu menu) {
 		mSearchItem = menu.findItem(R.id.action_bar_right_item_search);
 		mRightItem = menu.findItem(R.id.action_bar_right_item);
 	}
 
-	private void initMenu() {
+	protected void initMenu() {
 		SearchView searchView = (SearchView) mSearchItem.getActionView();
 		searchView.setOnQueryTextListener(searchViewChangeListener);
 	}

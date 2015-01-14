@@ -2,9 +2,12 @@ package com.ruanko.activity;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -23,7 +26,8 @@ import com.ruanko.model.Contact;
 
 public class MainActivity extends BaseActivity {
 	private ListView listView;
-
+	private UserAdapter mAdapter;
+	private OnMenuItemClickListener listner;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -58,6 +62,41 @@ public class MainActivity extends BaseActivity {
 		});
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+		findMenu(menu);
+		initMenu();
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.action_bar_right_item:
+		{
+			setContentView(R.layout.activity_editor);
+			item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+				
+				@Override
+				public boolean onMenuItemClick(MenuItem it) {
+					
+			                  Intent intent = new Intent();
+	                          intent.setClass(MainActivity.this, EditActivity.class);
+                              startActivity(intent);
+                              MainActivity.this.finish();
+					return false;
+				}
+			});
+		}
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	
+
 	private final class ItemClickListener implements OnItemClickListener {
 
 		@Override
@@ -71,12 +110,17 @@ public class MainActivity extends BaseActivity {
 		}
 
 	}
+	
+	
+	
+	private void notifyDataSetChanged(){
+		mAdapter.notifyDataSetChanged();
+	}
 
 	// ◊‘∂®“Â  ≈‰∆˜
 	private void show() {
 		List<Contact> users = null;
-		UserAdapter adapter = new UserAdapter(this, users, R.layout.item_main);
-
+		mAdapter = new UserAdapter(this, users, R.layout.item_main);
 		Log.v("wq", "hi contactbook");
 	}
 
