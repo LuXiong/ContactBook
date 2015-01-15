@@ -1,15 +1,10 @@
 package com.ruanko.activity;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,84 +12,104 @@ import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.ruanko.adapter.UserAdapter;
 import com.ruanko.bussiness.ContactBussiness;
-import com.ruanko.common.PhoneConstant;
 import com.ruanko.contactbook.BaseActivity;
 import com.ruanko.contactbook.R;
+import com.ruanko.listener.DataBaseListener;
 import com.ruanko.model.Contact;
-import com.ruanko.model.Phone;
 //import com.ruanko.adapter.UserAdapter;
 
 //import com.ruanko.model.User;
 
 public class MainActivity extends BaseActivity {
-	private ListView listView;
+	private ListView mListView;
 	private UserAdapter mAdapter;
 	private OnMenuItemClickListener listner;
-
+	private ArrayList<Contact> mContactList;
+	
+	EditText editViewName;
+	EditText editViewPhone;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		ArrayList<Contact> contacts = (new ContactBussiness())
-				.fetchContactInformation(this);
-		ImageView img = (ImageView) this.findViewById(R.id.img);
-		Contact contact = new Contact();
-		contact.setName("haha");
-		ContactBussiness c = new ContactBussiness();
-		c.createNewContact(this, contact);
-		listView = (ListView) this.findViewById(R.id.listView);
-		listView.setOnItemClickListener(new ItemClickListener());
-		show();
-		setOnRightBtnClickListener(new OnRightBtnClickListener() {
+		findView();
+		initView();
+		
+		
+	}
 
+	private void initView() {
+		
+		mContactList = new ArrayList<Contact>();
+		ContactBussiness cb = new ContactBussiness();
+		mContactList = cb.fetchContactInformation(this);
+		mAdapter = new UserAdapter(this, mContactList, R.layout.item_main);
+		mListView.setAdapter(mAdapter);
+		mListView.setOnItemClickListener(new ItemClickListener());
+		setOnRightBtnClickListener(new OnRightBtnClickListener() {
+			
 			@Override
 			public void onClick(MenuItem item) {
 				Intent intent = new Intent();
-				intent.setClass(MainActivity.this, EditActivity.class);
-				startActivity(intent);
-
+                intent.setClass(MainActivity.this, EditActivity.class);
+                startActivity(intent);
+				
 			}
-		});
-
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+			});
+		}
+	
+		private void findView() {
+			mListView = (ListView) this.findViewById(R.id.listView);
+		}
+	
+		@Override
+		public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
 		setRightTitle("新建");
 		return result;
 	}
+	
+
+	
+	
 
 	private final class ItemClickListener implements OnItemClickListener {
-
+		//TextView m;
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			ListView lView = (ListView) parent;// 页面
-			Contact user = (Contact) lView.getItemAtPosition(position);
+			mContactList.get(position);
+			/****
 			Toast.makeText(getApplicationContext(), String.valueOf(position), 1)
 					.show();
+					****/
+			Intent intent = new Intent();
+			intent.setClass(MainActivity.this, DetailActivity.class);
+			startActivity(intent);
+			mContactList.get(position).getName();//获取姓名
+			mContactList.get(position).getPhones();//获取电话
+			mContactList.get(position).getAddr();//获取地址
+			mContactList.get(position).getEmails();//获取邮件
+			
 
 		}
 
 	}
-
-	private void notifyDataSetChanged() {
+	
+	
+	
+	private void notifyDataSetChanged(){
 		mAdapter.notifyDataSetChanged();
 	}
 
-	// 自定义适配器
-	private void show() {
-		List<Contact> users = null;
-		mAdapter = new UserAdapter(this, users, R.layout.item_main);
-		Log.v("wq", "hi contactbook");
-	}
+
+
 
 }
