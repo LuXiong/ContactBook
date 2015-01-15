@@ -23,6 +23,8 @@ public class Contact {
 
 	private String groupName;
 
+	private DataId ids;
+
 	public Contact() {
 		this(null, null, null, null, null, null, null);
 	}
@@ -105,10 +107,13 @@ public class Contact {
 		this.groupName = groupName;
 	}
 
+	public DataId getDataIds() {
+		return this.ids;
+	}
+
 	public Contact(String contactId, String name, ArrayList<Phone> phones,
 			String avatar, String addr, ArrayList<String> emails,
 			String groupName) {
-		super();
 		this.contactId = contactId;
 		this.name = name;
 		this.phones = phones;
@@ -116,6 +121,7 @@ public class Contact {
 		this.addr = addr;
 		this.emails = emails;
 		this.groupName = groupName;
+		this.ids = new DataId();
 	}
 
 	@Override
@@ -126,4 +132,76 @@ public class Contact {
 				+ groupName + "]";
 	}
 
+	public class DataId {
+		private String name;
+		private String avatar;
+		private String group;
+		private String addr;
+		private ArrayList<String> phones;
+		private ArrayList<String> emails;
+		private ArrayList<String> ims;
+
+		public DataId() {
+			phones = new ArrayList<String>();
+			emails = new ArrayList<String>();
+			ims = new ArrayList<String>();
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getAvatar() {
+			return avatar;
+		}
+
+		public void setAvatar(String avatar) {
+			this.avatar = avatar;
+		}
+
+		public String getGroup() {
+			return group;
+		}
+
+		public void setGroup(String group) {
+			this.group = group;
+		}
+
+		public String getAddr() {
+			return addr;
+		}
+
+		public void setAddr(String addr) {
+			this.addr = addr;
+		}
+
+		public ArrayList<String> getPhones() {
+			return phones;
+		}
+
+		public void setPhones(ArrayList<String> phones) {
+			this.phones = phones;
+		}
+
+		public ArrayList<String> getEmails() {
+			return emails;
+		}
+
+		public void setEmails(ArrayList<String> emails) {
+			this.emails = emails;
+		}
+
+		public ArrayList<String> getIms() {
+			return ims;
+		}
+
+		public void setIms(ArrayList<String> ims) {
+			this.ims = ims;
+		}
+
+	}
 }

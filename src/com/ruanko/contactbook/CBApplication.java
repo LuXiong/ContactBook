@@ -19,7 +19,18 @@ public class CBApplication extends Application {
 	public void onCreate() {
 		Log.v("xionglu", "application created");
 		instance = this;
-
+		ContactBussiness ub = new ContactBussiness();
+		ArrayList<Contact> contacts = ub
+				.fetchContactInformation(getApplicationContext());
+		for (Contact contact : contacts) {
+			Log.v("xionglu", contact.toString());
+			if (contact != null) {
+				ArrayList<Phone> phones = contact.getPhones();
+				for (Phone phone : phones) {
+					Log.v("xionglu", phone.toString());
+				}
+			}
+		}
 		super.onCreate();
 	}
 
