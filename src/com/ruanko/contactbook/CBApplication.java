@@ -1,13 +1,16 @@
 package com.ruanko.contactbook;
 
-import com.ruanko.bussiness.ContactBussiness;
-import com.ruanko.bussiness.UserBussiness;
+import java.util.ArrayList;
 
 import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
+
+import com.ruanko.bussiness.ContactBussiness;
+import com.ruanko.model.Contact;
+import com.ruanko.model.Phone;
 
 public class CBApplication extends Application {
 	private static CBApplication instance;
@@ -16,8 +19,7 @@ public class CBApplication extends Application {
 	public void onCreate() {
 		Log.v("xionglu", "application created");
 		instance = this;
-		ContactBussiness ub = new ContactBussiness();
-		ub.fetchContactInformationV2(getApplicationContext());
+
 		super.onCreate();
 	}
 
