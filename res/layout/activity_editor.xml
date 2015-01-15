@@ -136,11 +136,15 @@
                 android:textSize="16px" >
             </TextView>
 
-            <EditText
-                android:id="@+id/EditText06"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp" />
+            <Spinner
+			    android:id="@+id/spinner01"
+			    android:layout_width="fill_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:layout_marginLeft="5dip"
+			    android:drawingCacheQuality="auto"
+			    android:prompt="@string/spinner_group"
+			/>
         </TableRow>
 
         <TableRow
@@ -149,14 +153,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp" >
 
-            <TextView
-                android:id="@+id/TextView07"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:text="@string/birthday"
-                android:textSize="16px" >
-            </TextView>
 
             <EditText
                 android:id="@+id/EditText07"

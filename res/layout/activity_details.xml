@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical" >
 
     <ScrollView
@@ -38,7 +37,7 @@
                         android:src="@drawable/ic_launcher" >
                     </ImageButton>
 
-                    <EditText
+                    <TextView
                         android:id="@+id/name"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -61,7 +60,7 @@
                         android:text="手机："
                         android:textSize="20dp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/phone"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -81,16 +80,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="生日："
+                        android:text="分组："
                         android:textSize="20dp" />
 
-                    <EditText
-                        android:id="@+id/birthday"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="top"
-                        android:hint="生日"
-                        android:scrollbars="vertical" />
+                    <Spinner
+			            android:id="@+id/spinner_group"
+			            android:layout_width="fill_parent"
+			            android:layout_height="wrap_content"
+			            android:layout_weight="1"
+			            android:layout_marginLeft="5dip"
+			            android:drawingCacheQuality="auto"
+			            android:prompt="@string/spinner_group"
+			         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -106,7 +107,7 @@
                         android:text="地址："
                         android:textSize="20dp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/address"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -128,7 +129,7 @@
                         android:text="QQ："
                         android:textSize="20dp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/qqnum"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -150,7 +151,7 @@
                         android:text="E-mail："
                         android:textSize="20dp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/email"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
@@ -174,10 +175,13 @@
 
                     <ImageButton
                         android:id="@+id/btn_delete"
-                        android:layout_width="fill_parent"
+                        android:layout_width="183dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="删除" />
+                        android:src="@drawable/delete1"
+                        android:text="删除" 
+                        android:background="#00000000"
+                        />
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -191,14 +195,20 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="呼叫" />
+                    android:text="呼叫" 
+                    android:src="@drawable/hujiao1"
+                     android:background="#00000000"
+                    />
 
                 <ImageButton
                     android:id="@+id/btn_message"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="短信" />
+                    android:text="短信" 
+                    android:src="@drawable/duanxin1"
+                     android:background="#00000000"
+                    />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

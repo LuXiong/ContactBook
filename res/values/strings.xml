@@ -10,5 +10,5 @@
     <string name="email">邮箱 :</string>
     <string name="addr">地址:</string>
     <string name="group">组别 :</string>
-    <string name="birthday">生日:</string>
+    <string name="spinner_group">加入分组</string>
 </resources>
