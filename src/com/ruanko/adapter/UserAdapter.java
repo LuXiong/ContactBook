@@ -49,8 +49,7 @@ public class UserAdapter extends BaseAdapter {
 		
 		if(convertView == null){
 			convertView = inflater.inflate(resource, null);//生成条目
-			nameView = (TextView)convertView.findViewById(R.id.name);
-			
+			nameView = (TextView)convertView.findViewById(R.id.name);		
 			ViewCache cache = new ViewCache();
 			cache.nameView = nameView;
 			convertView.setTag(cache);
