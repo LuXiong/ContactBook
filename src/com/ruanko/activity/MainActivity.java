@@ -89,7 +89,8 @@ public class MainActivity extends BaseActivity {
 					****/
 			Intent intent = new Intent();
 			intent.setClass(MainActivity.this, DetailActivity.class);
-
+			intent.putExtra(DetailActivity.EXTRA_INPUT, (Contact)mContactList.get(position));
+			startActivity(intent);
 			((Contact) mContactList.get(position)).getName();//获取姓名
 			((Contact) mContactList.get(position)).getPhones();//获取电话
 			((Contact) mContactList.get(position)).getAddr();//获取地址
