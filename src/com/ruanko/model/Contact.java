@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 import com.j256.ormlite.table.DatabaseTable;
+import com.ruanko.control.ContactItemInterface;
+import com.ruanko.pinyin.PinYin;
 
-@DatabaseTable(tableName = "contact")
-public class Contact implements Serializable{
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3641645892737438920L;
+public class Contact implements ContactItemInterface,Serializable {
+
 
 	private String contactId;
 
@@ -31,22 +29,10 @@ public class Contact implements Serializable{
 
 	private DataId ids;
 
+	private String namePinyin;
+
 	public Contact() {
 		this(null, null, null, null, null, null, null);
-	}
-
-	public Contact(String contactId, String name, ArrayList<Phone> phones,
-			ArrayList<Im> ims, String avatar, String addr,
-			ArrayList<String> emails, String groupName) {
-		super();
-		this.contactId = contactId;
-		this.name = name;
-		this.phones = phones;
-		this.ims = ims;
-		this.avatar = avatar;
-		this.addr = addr;
-		this.emails = emails;
-		this.groupName = groupName;
 	}
 
 	public String getContactId() {
@@ -63,6 +49,10 @@ public class Contact implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
+		this.namePinyin = (new PinYin()).getPinyin(name);
+		if (this.namePinyin == null) {
+			this.namePinyin = name;
+		}
 	}
 
 	public ArrayList<Phone> getPhones() {
@@ -214,5 +204,15 @@ public class Contact implements Serializable{
 			this.ims = ims;
 		}
 
+	}
+
+	@Override
+	public String getOrderingItem() {
+		return namePinyin;
+	}
+
+	@Override
+	public String getDisplayItem() {
+		return name;
 	}
 }

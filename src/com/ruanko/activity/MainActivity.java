@@ -1,43 +1,36 @@
 package com.ruanko.activity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.ruanko.adapter.ContactListAdapter;
 import com.ruanko.adapter.UserAdapter;
 import com.ruanko.bussiness.ContactBussiness;
 import com.ruanko.contactbook.BaseActivity;
 import com.ruanko.contactbook.R;
-import com.ruanko.listener.DataBaseListener;
+import com.ruanko.control.ContactItemInterface;
+import com.ruanko.control.ContactListView;
 import com.ruanko.model.Contact;
-//import com.ruanko.adapter.UserAdapter;
-
-//import com.ruanko.model.User;
 
 public class MainActivity extends BaseActivity {
-	
 	private ListView mListView;
-	private UserAdapter mAdapter;
+	private BaseAdapter mAdapter;
 	private OnMenuItemClickListener listner;
-	private ArrayList<Contact> mContactList;
+	private ArrayList<ContactItemInterface> mContactList;
 	
-	private Button mBtnTest;
-
+	EditText editViewName;
+	EditText editViewPhone;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -50,11 +43,12 @@ public class MainActivity extends BaseActivity {
 
 	private void initView() {
 		
-		mContactList = new ArrayList<Contact>();
+		mContactList = new ArrayList<ContactItemInterface>();
 		ContactBussiness cb = new ContactBussiness();
-		mContactList = cb.fetchContactInformation(this);
-		mAdapter = new UserAdapter(this, mContactList, R.layout.item_main);
+		mContactList.addAll( cb.fetchContactInformation(this));
+		mAdapter = new ContactListAdapter(this, mContactList);
 		mListView.setAdapter(mAdapter);
+		mListView.setFastScrollEnabled(true);
 		mListView.setOnItemClickListener(new ItemClickListener());
 		setOnRightBtnClickListener(new OnRightBtnClickListener() {
 			
@@ -66,22 +60,10 @@ public class MainActivity extends BaseActivity {
 				
 			}
 			});
-		
-		mBtnTest = (Button)this.findViewById(R.id.btn_test);
-		mBtnTest.setOnClickListener(new OnClickListener() {
-
-			public void onClick(View v) {
-			if((v = mBtnTest )!= null){
-		         SerializeMethod();  
-			}
-				
-			}
-		});
-		
 		}
 	
 		private void findView() {
-			mListView = (ListView) this.findViewById(R.id.listView);
+			mListView = (ContactListView) this.findViewById(R.id.listView);
 		}
 	
 		@Override
@@ -107,28 +89,18 @@ public class MainActivity extends BaseActivity {
 					****/
 			Intent intent = new Intent();
 			intent.setClass(MainActivity.this, DetailActivity.class);
-			startActivity(intent);
-			mContactList.get(position).getName();//获取姓名
-			mContactList.get(position).getPhones();//获取电话
-			mContactList.get(position).getAddr();//获取地址
-			mContactList.get(position).getEmails();//获取邮件
+
+			((Contact) mContactList.get(position)).getName();//获取姓名
+			((Contact) mContactList.get(position)).getPhones();//获取电话
+			((Contact) mContactList.get(position)).getAddr();//获取地址
+			((Contact) mContactList.get(position)).getEmails();//获取邮件
 			
 
 		}
 
 	}
-
-	public void SerializeMethod(){    
-        Contact contact = new Contact(); 
-        contact.setName("zhouyezi");    
-        contact.setAddr("hust");
-       // mContact.setPhones("","");    
-        Intent intent = new Intent();  
-        intent.setClass(MainActivity.this,DetailActivity.class);  
-        intent.putExtra(DetailActivity.EXTRA_INPUT,contact);          
-        startActivity(intent);    
-    }    
-
+	
+	
 	
 	private void notifyDataSetChanged(){
 		mAdapter.notifyDataSetChanged();
