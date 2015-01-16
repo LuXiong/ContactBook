@@ -17,7 +17,8 @@
         android:name="com.ruanko.contactbook.CBApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:theme="@style/MyActionBar" >
         <activity
             android:name="com.ruanko.activity.MainActivity"
             android:label="@string/app_name" >
@@ -29,9 +30,7 @@
         </activity>
         <activity android:name="com.ruanko.activity.LaunchActivity" >
         </activity>
-        <activity
-            android:name="com.ruanko.contactbook.BaseActivity"
-            android:theme="@style/MyActionBar" >
+        <activity android:name="com.ruanko.contactbook.BaseActivity" >
         </activity>
         <activity android:name="com.ruanko.activity.EditActivity" >
         </activity>
