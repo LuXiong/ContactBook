@@ -29,8 +29,7 @@ public class MainActivity extends BaseActivity {
 	private OnMenuItemClickListener listner;
 	private ArrayList<ContactItemInterface> mContactList;
 	
-	EditText editViewName;
-	EditText editViewPhone;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,24 +81,20 @@ public class MainActivity extends BaseActivity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			mContactList.get(position);
-			/****
-			Toast.makeText(getApplicationContext(), String.valueOf(position), 1)
-					.show();
-					****/
-			Intent intent = new Intent();
-			intent.setClass(MainActivity.this, DetailActivity.class);
+			Contact con = (Contact)mContactList.get(position);
+			Contact contact = new Contact();
 
-			((Contact) mContactList.get(position)).getName();//获取姓名
-			((Contact) mContactList.get(position)).getPhones();//获取电话
-			((Contact) mContactList.get(position)).getAddr();//获取地址
-			((Contact) mContactList.get(position)).getEmails();//获取邮件
-			
-
+			contact.setName(con.getName()); 
+		    contact.setAddr(con.getAddr());
+		    contact.setPhones(con.getPhones());
+			 Intent intent = new Intent();  
+		        intent.setClass(MainActivity.this,DetailActivity.class);  
+		        intent.putExtra(DetailActivity.EXTRA_INPUT,contact);          
+		        startActivity(intent);    
+	
 		}
 
 	}
-	
 	
 	
 	private void notifyDataSetChanged(){

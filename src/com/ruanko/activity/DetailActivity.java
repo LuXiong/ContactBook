@@ -122,9 +122,11 @@ public class DetailActivity extends BaseActivity {
 		TextView m_name = (TextView)this.findViewById(R.id.name);   
 		TextView m_addr = (TextView)this.findViewById(R.id.address); 
 		TextView m_email= (TextView)this.findViewById(R.id.email); 
+		TextView m_phones=(TextView)this.findViewById(R.id.phone);
         Contact mContact = (Contact)getIntent().getSerializableExtra(DetailActivity.EXTRA_INPUT);    
         m_name.setText(mContact.getName()); 
         m_addr.setText(mContact.getAddr()); 
+        m_phones.setText((CharSequence) mContact.getPhones());
      
 		
 	}
