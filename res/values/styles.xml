@@ -2,13 +2,13 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
@@ -19,13 +19,19 @@
 
     <style name="MyActionBar" parent="@android:style/Theme.Holo">
         <item name="android:actionBarStyle">@style/MyActionBarStyle</item>
+        <item name="android:actionMenuTextColor">#0000ff</item>
     </style>
 
     <!-- style for the action bar backgrounds -->
     <style name="MyActionBarStyle" parent="@android:style/Widget.Holo.ActionBar">
-        <item name="android:background">#dddddd</item>
+        <item name="android:background">@color/white</item>
         <item name="android:backgroundStacked">@color/white</item>
         <item name="android:backgroundSplit">@color/white</item>
+        <item name="android:titleTextStyle">@style/MyActionBarTitleText</item>
+    </style>
+
+    <style name="MyActionBarTitleText">
+        <item name="android:textColor">@color/black</item>
     </style>
 
 </resources>
