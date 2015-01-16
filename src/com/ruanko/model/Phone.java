@@ -1,6 +1,12 @@
 package com.ruanko.model;
+import java.io.Serializable;
 
-public class Phone {
+public class Phone implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5239934130725489288L;
 
 	private String type;
 

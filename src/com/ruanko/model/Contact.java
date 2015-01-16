@@ -1,11 +1,17 @@
 package com.ruanko.model;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
 import com.j256.ormlite.table.DatabaseTable;
 
 @DatabaseTable(tableName = "contact")
-public class Contact {
+public class Contact implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3641645892737438920L;
 
 	private String contactId;
 
@@ -132,7 +138,12 @@ public class Contact {
 				+ groupName + "]";
 	}
 
-	public class DataId {
+	public class DataId implements Serializable{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -3620391410428335349L;
+
 		private String name;
 		private String avatar;
 		private String group;

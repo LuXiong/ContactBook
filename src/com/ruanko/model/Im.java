@@ -1,6 +1,11 @@
 package com.ruanko.model;
+import java.io.Serializable;
 
-public class Im {
+public class Im implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 945594020709374261L;
 	private String account;
 	private String type;
 

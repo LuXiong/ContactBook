@@ -6,17 +6,23 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.ruanko.bussiness.ContactBussiness;
 import com.ruanko.contactbook.BaseActivity;
 import com.ruanko.contactbook.R;
+import com.ruanko.contactbook.BaseActivity.OnRightBtnClickListener;
 import com.ruanko.model.Contact;
 
 public class DetailActivity extends BaseActivity {
+	
+	final static public String EXTRA_INPUT = "contact"; 
 	
 	private ScrollView scrollView;
 	private ArrayList<Contact> mContact;
@@ -29,7 +35,7 @@ public class DetailActivity extends BaseActivity {
 	protected void onCreate(Bundle bundle) {
 		
 		super.onCreate(bundle);
-		setContentView(R.layout.activity_details);
+		setContentView(R.layout.activity_details);   
 		findView();
 		initView();
 	}
@@ -81,6 +87,16 @@ public class DetailActivity extends BaseActivity {
 			
 			}
 		});
+		setOnRightBtnClickListener(new OnRightBtnClickListener() {
+			
+			@Override
+			public void onClick(MenuItem item) {
+				Intent intent = new Intent();
+                intent.setClass(DetailActivity.this, EditActivity.class);
+                startActivity(intent);
+				
+			}
+			});
     	
     	initData();
 		bindEvent();
@@ -92,9 +108,25 @@ public class DetailActivity extends BaseActivity {
 		
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	boolean result = super.onCreateOptionsMenu(menu);
+	setRightTitle("±à¼­");
+	hideSearchBtn();
+	return result;
+}
 
 	private void initData() {
-		//setTitle("hello world");
+		//setTitle("hello world");  
+
+		TextView m_name = (TextView)this.findViewById(R.id.name);   
+		TextView m_addr = (TextView)this.findViewById(R.id.address); 
+		TextView m_email= (TextView)this.findViewById(R.id.email); 
+        Contact mContact = (Contact)getIntent().getSerializableExtra(DetailActivity.EXTRA_INPUT);    
+        m_name.setText(mContact.getName()); 
+        m_addr.setText(mContact.getAddr()); 
+     
+		
 	}
 
 	public class LaunchScrollViewClickListener implements OnClickListener {

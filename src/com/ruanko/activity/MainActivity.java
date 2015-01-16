@@ -10,8 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,13 +30,14 @@ import com.ruanko.model.Contact;
 //import com.ruanko.model.User;
 
 public class MainActivity extends BaseActivity {
+	
 	private ListView mListView;
 	private UserAdapter mAdapter;
 	private OnMenuItemClickListener listner;
 	private ArrayList<Contact> mContactList;
 	
-	EditText editViewName;
-	EditText editViewPhone;
+	private Button mBtnTest;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,6 +66,18 @@ public class MainActivity extends BaseActivity {
 				
 			}
 			});
+		
+		mBtnTest = (Button)this.findViewById(R.id.btn_test);
+		mBtnTest.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+			if((v = mBtnTest )!= null){
+		         SerializeMethod();  
+			}
+				
+			}
+		});
+		
 		}
 	
 		private void findView() {
@@ -102,8 +117,18 @@ public class MainActivity extends BaseActivity {
 		}
 
 	}
-	
-	
+
+	public void SerializeMethod(){    
+        Contact contact = new Contact(); 
+        contact.setName("zhouyezi");    
+        contact.setAddr("hust");
+       // mContact.setPhones("","");    
+        Intent intent = new Intent();  
+        intent.setClass(MainActivity.this,DetailActivity.class);  
+        intent.putExtra(DetailActivity.EXTRA_INPUT,contact);          
+        startActivity(intent);    
+    }    
+
 	
 	private void notifyDataSetChanged(){
 		mAdapter.notifyDataSetChanged();
