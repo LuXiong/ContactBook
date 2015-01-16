@@ -81,16 +81,15 @@ public class MainActivity extends BaseActivity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			Contact con = (Contact)mContactList.get(position);
-			Contact contact = new Contact();
-
-			contact.setName(con.getName()); 
-		    contact.setAddr(con.getAddr());
-		    contact.setPhones(con.getPhones());
-			 Intent intent = new Intent();  
-		        intent.setClass(MainActivity.this,DetailActivity.class);  
-		        intent.putExtra(DetailActivity.EXTRA_INPUT,contact);          
-		        startActivity(intent);    
+			mContactList.get(position);
+			/****
+			Toast.makeText(getApplicationContext(), String.valueOf(position), 1)
+					.show();
+					****/
+			Intent intent = new Intent();
+			intent.setClass(MainActivity.this, DetailActivity.class);
+			intent.putExtra(DetailActivity.EXTRA_INPUT, (Contact)mContactList.get(position));
+			startActivity(intent);   
 	
 		}
 

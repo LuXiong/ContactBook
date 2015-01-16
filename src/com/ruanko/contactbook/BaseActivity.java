@@ -24,7 +24,7 @@ public class BaseActivity extends FragmentActivity {
 		// left top button to get back
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 		// using title
-		mActionBar.setDisplayShowTitleEnabled(true);
+		mActionBar.setDisplayShowTitleEnabled(false);
 		// do not use icon
 		mActionBar.setDisplayShowHomeEnabled(false);
 

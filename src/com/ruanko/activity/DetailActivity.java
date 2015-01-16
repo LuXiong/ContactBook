@@ -33,11 +33,11 @@ public class DetailActivity extends BaseActivity {
     
 	@Override
 	protected void onCreate(Bundle bundle) {
-		
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_details);   
 		findView();
 		initView();
+		
 	}
 
 	
