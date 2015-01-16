@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingRight="24dp" >
+
+    <TextView
+        android:id="@+id/item_main_section_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dip"
+        android:background="#ededed"
+        android:paddingLeft="15dp"
+        android:text="A"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/infoRowContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/item_main_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Username"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:background="#d4d4d4" />
+
+</LinearLayout>
