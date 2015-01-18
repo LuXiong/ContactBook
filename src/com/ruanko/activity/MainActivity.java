@@ -21,7 +21,7 @@ import com.ruanko.control.ContactListView;
 import com.ruanko.model.Contact;
 
 public class MainActivity extends BaseActivity {
-	private ListView mListView;
+	private ContactListView mListView;
 	private BaseAdapter mAdapter;
 	private ArrayList<ContactItemInterface> mContactList;
 
@@ -38,11 +38,12 @@ public class MainActivity extends BaseActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
 		setRightTitle("新建");
+		setTitle("联系人");
 		return result;
 	}
 
 	private void findView() {
-		mListView = (ContactListView) this.findViewById(R.id.activity_main_listView);
+		mListView = (ContactListView) findViewById(R.id.activity_main_listView);
 	}
 
 	private void initView() {
@@ -85,6 +86,7 @@ public class MainActivity extends BaseActivity {
 
 	private void notifyDataSetChanged() {
 		mAdapter.notifyDataSetChanged();
+		mListView.notifyAdapterChanged(mAdapter);
 	}
 
 }

@@ -36,6 +36,8 @@
         </activity>
         <activity android:name="com.ruanko.activity.DetailActivity" >
         </activity>
+        <activity android:name="com.ruanko.activity.CreateContactActivity" >
+        </activity>
     </application>
 
 </manifest>

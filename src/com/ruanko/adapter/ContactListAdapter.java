@@ -30,6 +30,12 @@ public class ContactListAdapter extends BaseAdapter{
 		setIndexer(new ContactsSectionIndexer(_items));
 	
 	}
+	@Override
+	public void notifyDataSetChanged() {
+		Collections.sort(mContactList, new ContactItemComparator());
+		setIndexer(new ContactsSectionIndexer(mContactList));
+		super.notifyDataSetChanged();
+	}
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {		

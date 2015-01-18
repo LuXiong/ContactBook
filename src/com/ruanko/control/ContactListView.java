@@ -112,10 +112,10 @@ public class ContactListView extends ListView{
 	@Override
 	public void setAdapter(ListAdapter adapter) {
 		super.setAdapter(adapter);
-		if (mScroller != null)
+		if (mScroller != null){
 			mScroller.setAdapter(adapter);
+		}	
 	}
-
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
@@ -131,5 +131,14 @@ public class ContactListView extends ListView{
 		this.inSearchMode = inSearchMode;
 	}
 	
+	public void notifyAdapterChanged(ListAdapter adapter){
+		if (mScroller != null){
+			mScroller.setAdapter(adapter);
+		}	
+	}
+	
+	public interface DataChangedListener{
+		public void onListDataChanged();
+	}
 	
 }
