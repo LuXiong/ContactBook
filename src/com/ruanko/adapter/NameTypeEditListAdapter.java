@@ -3,6 +3,9 @@ package com.ruanko.adapter;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,40 +20,28 @@ import com.ruanko.common.NameTypeInterface;
 import com.ruanko.contactbook.R;
 
 public class NameTypeEditListAdapter extends BaseAdapter {
-	public class AddLayoutClickListener implements OnClickListener {
-
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-
-		}
-
-	}
-
-
-	public class DeleteLayoutClickListener implements OnClickListener {
-
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-
-		}
-
-	}
-
 
 	private Context mContext;
 	private ArrayList<NameTypeInterface> mList;
+	private EditTextChangedListener mAccountEditTextChangedListener;
+	private DeleteItemClickListener mDeleteItemClickListener;
 
 	public NameTypeEditListAdapter(ArrayList<NameTypeInterface> list,
 			Context context) {
 		this.mContext = context;
 		this.mList = list;
+		// mListEmptyCheck();
+	}
+
+	@Override
+	public void notifyDataSetChanged() {
+		// mListEmptyCheck();
+		super.notifyDataSetChanged();
 	}
 
 	@Override
 	public int getCount() {
-		return mList.size() + 1;
+		return mList.size();
 	}
 
 	@Override
@@ -65,7 +56,7 @@ public class NameTypeEditListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		NameTypeInterface item = mList.get(position);
+
 		ViewHolder holder;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(mContext).inflate(
@@ -75,26 +66,107 @@ public class NameTypeEditListAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		if (position == mList.size()) {
-			holder.editLayout.setVisibility(View.GONE);
-			holder.addLayout.setVisibility(View.VISIBLE);
-			holder.addLayout.setOnClickListener(new AddLayoutClickListener());
-			
-		} else {
-			holder.editLayout.setVisibility(View.VISIBLE);
-			holder.addLayout.setVisibility(View.GONE);
-			holder.deleteImg.setOnClickListener(new DeleteLayoutClickListener());
+
+		NameTypeInterface item = mList.get(position);
+		if (item != null) {
+			holder.deleteImg.setOnClickListener(new DeleteLayoutClickListener(
+					position));
+			holder.typeTextView.setText(item.getModelType());
+			holder.accountEditText.setText(item.getModelName());
+			holder.accountEditText
+					.addTextChangedListener(new AccountEditTextChanged(position));
 		}
-		return null;
+
+		return convertView;
 	}
 
+	private void mListEmptyCheck() {
+		if (mList.isEmpty()) {
+			mList.add(new NameTypeInterface() {
+
+				@Override
+				public String getModelType() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+
+				@Override
+				public String getModelName() {
+					// TODO Auto-generated method stub
+					return null;
+				}
+			});
+		}
+	}
+
+	public void setOnDelteItemClickListener(DeleteItemClickListener l) {
+		this.mDeleteItemClickListener = l;
+	}
+
+	public void setOnAccountEditTextChangedListener(EditTextChangedListener l) {
+		this.mAccountEditTextChangedListener = l;
+	}
+
+	public class AccountEditTextChanged implements TextWatcher {
+		private int mPosition;
+
+		public AccountEditTextChanged(int position) {
+			this.mPosition = position;
+		}
+
+		@Override
+		public void beforeTextChanged(CharSequence s, int start, int count,
+				int after) {
+
+		}
+
+		@Override
+		public void onTextChanged(CharSequence s, int start, int before,
+				int count) {
+
+		}
+
+		@Override
+		public void afterTextChanged(Editable s) {
+			if (mAccountEditTextChangedListener != null) {
+				mAccountEditTextChangedListener.editTextChanged(s, mPosition);
+			}
+		}
+
+	}
+
+	public class DeleteLayoutClickListener implements OnClickListener {
+		private int mPosition;
+
+		public DeleteLayoutClickListener(int position) {
+			this.mPosition = position;
+		}
+
+		@Override
+		public void onClick(View v) {
+			if (mDeleteItemClickListener != null) {
+				mDeleteItemClickListener.deleteItemClick(v, mPosition);
+			}
+		}
+
+	}
+
+	public interface AddItemClickListener {
+		public void addItemClick(View v);
+	}
+
+	public interface DeleteItemClickListener {
+		public void deleteItemClick(View v, int position);
+	}
+
+	public interface EditTextChangedListener {
+		public void editTextChanged(Editable e, int position);
+	}
 
 	private class ViewHolder {
 		public ImageView deleteImg;
 		public TextView typeTextView;
 		public EditText accountEditText;
-		public LinearLayout addLayout;
-		public LinearLayout editLayout;
 
 		public ViewHolder(View v) {
 			deleteImg = (ImageView) v
@@ -103,10 +175,7 @@ public class NameTypeEditListAdapter extends BaseAdapter {
 					.findViewById(R.id.item_create_contact_phone_type_text);
 			accountEditText = (EditText) v
 					.findViewById(R.id.item_create_contact_content_editText);
-			addLayout = (LinearLayout) v
-					.findViewById(R.id.item_create_contact_add_layout);
-			addLayout = (LinearLayout) v
-					.findViewById(R.id.item_create_contact_edit_layout);
+
 		}
 	}
 

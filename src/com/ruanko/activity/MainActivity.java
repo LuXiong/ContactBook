@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void onClick(MenuItem item) {
 				Intent intent = new Intent();
-				intent.setClass(MainActivity.this, EditActivity.class);
+				intent.setClass(MainActivity.this, CreateContactActivity.class);
 				startActivity(intent);
 			}
 		});
