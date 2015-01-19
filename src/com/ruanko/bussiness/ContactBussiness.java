@@ -326,7 +326,7 @@ public class ContactBussiness {
 					contact.setGroupName(s1);
 					contact.getDataIds().setGroup(dataId);
 				} else if (mimetype
-						.equals(ContactsContract.CommonDataKinds.SipAddress.CONTENT_ITEM_TYPE)) {
+						.equals(ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)) {
 					contact.setAddr(s1);
 					contact.getDataIds().setAddr(dataId);
 				}
