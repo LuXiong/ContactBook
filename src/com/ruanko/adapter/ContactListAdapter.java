@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.ruanko.common.ContactItemInterface;
 import com.ruanko.contactbook.R;
 import com.ruanko.control.ContactItemComparator;
-import com.ruanko.control.ContactItemInterface;
 import com.ruanko.control.ContactsSectionIndexer;
 
 public class ContactListAdapter extends BaseAdapter{

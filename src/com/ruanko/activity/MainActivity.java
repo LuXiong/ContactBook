@@ -14,9 +14,9 @@ import android.widget.ListView;
 
 import com.ruanko.adapter.ContactListAdapter;
 import com.ruanko.bussiness.ContactBussiness;
+import com.ruanko.common.ContactItemInterface;
 import com.ruanko.contactbook.BaseActivity;
 import com.ruanko.contactbook.R;
-import com.ruanko.control.ContactItemInterface;
 import com.ruanko.control.ContactListView;
 import com.ruanko.model.Contact;
 

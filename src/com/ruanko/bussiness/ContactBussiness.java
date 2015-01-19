@@ -45,9 +45,9 @@ public class ContactBussiness {
 				.withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
 				.withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null);
 		ops.add(opRawContact.build());
-		
+
 		ArrayList<Phone> phones = contact.getPhones();
-		if(phones!=null){
+		if (phones != null) {
 			for (Phone phone : phones) {
 				ContentProviderOperation.Builder opPhone = ContentProviderOperation
 						.newInsert(ContactsContract.Data.CONTENT_URI)
@@ -56,20 +56,22 @@ public class ContactBussiness {
 						.withValue(
 								ContactsContract.Data.MIMETYPE,
 								ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-						.withValue(ContactsContract.CommonDataKinds.Phone.NUMBER,
+						.withValue(
+								ContactsContract.CommonDataKinds.Phone.NUMBER,
 								phone.getNumber())
 						.withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
 								phone.getType());
 				if (PhoneConstant.getType(phone) == CommonDataKinds.Phone.TYPE_OTHER) {
-					opPhone.withValue(ContactsContract.CommonDataKinds.Phone.LABEL,
+					opPhone.withValue(
+							ContactsContract.CommonDataKinds.Phone.LABEL,
 							phone.getType());
 				}
 				ops.add(opPhone.build());
 			}
 		}
-		
+
 		ArrayList<Im> ims = contact.getIms();
-		if(ims!=null){
+		if (ims != null) {
 			for (Im im : ims) {
 				ContentProviderOperation.Builder opIm = ContentProviderOperation
 						.newInsert(ContactsContract.Data.CONTENT_URI)
@@ -90,7 +92,6 @@ public class ContactBussiness {
 				ops.add(opIm.build());
 			}
 		}
-		
 
 		// ContentProviderOperation.Builder opGroupName =
 		// ContentProviderOperation
@@ -102,41 +103,41 @@ public class ContactBussiness {
 		// .withValue(
 		// ContactsContract.CommonDataKinds.GroupMembership.DISPLAY_NAME,
 		// contact.getName());
-		ArrayList<String> emails = contact.getEmails();
-		if(emails!=null){
-			for (String email : emails) {
-				ContentProviderOperation.Builder opEmail = ContentProviderOperation
-						.newInsert(ContactsContract.Data.CONTENT_URI)
-						.withValueBackReference(
-								ContactsContract.Data.RAW_CONTACT_ID, 0)
-						.withValue(
-								ContactsContract.Data.MIMETYPE,
-								ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
-						.withValue(ContactsContract.CommonDataKinds.Email.ADDRESS,
-								email);
-				ops.add(opEmail.build());
-			}
+		if (contact.getEmail() != null) {
+			ContentProviderOperation.Builder opEmail = ContentProviderOperation
+					.newInsert(ContactsContract.Data.CONTENT_URI)
+					.withValueBackReference(
+							ContactsContract.Data.RAW_CONTACT_ID, 0)
+					.withValue(
+							ContactsContract.Data.MIMETYPE,
+							ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+					.withValue(ContactsContract.CommonDataKinds.Email.ADDRESS,
+							contact.getEmail());
+			ops.add(opEmail.build());
+
 		}
-		if(contact.getAddr()!=null){
+		if (contact.getAddr() != null) {
 			ContentProviderOperation.Builder opAddr = ContentProviderOperation
 					.newInsert(ContactsContract.Data.CONTENT_URI)
-					.withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+					.withValueBackReference(
+							ContactsContract.Data.RAW_CONTACT_ID, 0)
 					.withValue(
 							ContactsContract.Data.MIMETYPE,
 							ContactsContract.CommonDataKinds.SipAddress.CONTENT_ITEM_TYPE)
 					.withValue(
 							ContactsContract.CommonDataKinds.SipAddress.SIP_ADDRESS,
 							contact.getAddr());
-			
+
 			ops.add(opAddr.build());
 		}
-		
-		if(contact.getName()==null){
+
+		if (contact.getName() == null) {
 			Toast.makeText(context, "姓名不能为空", Toast.LENGTH_LONG).show();
-		}else{
+		} else {
 			ContentProviderOperation.Builder opName = ContentProviderOperation
 					.newInsert(ContactsContract.Data.CONTENT_URI)
-					.withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+					.withValueBackReference(
+							ContactsContract.Data.RAW_CONTACT_ID, 0)
 					.withValue(
 							ContactsContract.Data.MIMETYPE,
 							ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
@@ -146,7 +147,7 @@ public class ContactBussiness {
 			opName.withYieldAllowed(true);
 			ops.add(opName.build());
 		}
-		
+
 		try {
 
 			context.getContentResolver().applyBatch(ContactsContract.AUTHORITY,
@@ -156,95 +157,97 @@ public class ContactBussiness {
 		}
 	}
 
-//	public void updateContact(Context context, Contact preContact, Contact contact) {
-//		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
-//		ContentProviderOperation.Builder opName = ContentProviderOperation
-//				.newUpdate(ContactsContract.Data.CONTENT_URI)
-//				.withSelection(ContactsContract.Data._ID,
-//						new String[] { contact.getDataIds().getName() })
-//				.withValue(
-//						ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
-//						contact.getName());
-//		ops.add(opName.build());
-//		ArrayList<Phone> phones = contact.getPhones();
-//		for (int i = 0; i < phones.size(); i++) {
-//			Phone phone = phones.get(i);
-//			ContentProviderOperation.Builder opPhone = ContentProviderOperation
-//					.newUpdate(ContactsContract.Data.CONTENT_URI)
-//					.withSelection(
-//							ContactsContract.Data._ID,
-//							new String[] { contact.getDataIds().getPhones()
-//									.get(i) })
-//					.withValue(ContactsContract.CommonDataKinds.Phone.NUMBER,
-//							phone.getNumber())
-//					.withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
-//							phone.getType());
-//			if (PhoneConstant.getType(phone) == CommonDataKinds.Phone.TYPE_OTHER) {
-//				opPhone.withValue(ContactsContract.CommonDataKinds.Phone.LABEL,
-//						phone.getType());
-//			}
-//			ops.add(opPhone.build());
-//		}
-//		ArrayList<Im> ims = contact.getIms();
-//		for (int i = 0; i < ims.size(); i++) {
-//			Im im = ims.get(i);
-//			ContentProviderOperation.Builder opIm = ContentProviderOperation
-//					.newUpdate(ContactsContract.Data.CONTENT_URI)
-//					.withSelection(
-//							ContactsContract.Data._ID,
-//							new String[] { contact.getDataIds().getIms().get(i) })
-//					.withValue(ContactsContract.CommonDataKinds.Im.DATA,
-//							im.getAccount())
-//					.withValue(ContactsContract.CommonDataKinds.Im.TYPE,
-//							ContactsContract.CommonDataKinds.Im.TYPE_HOME);
-//			if (ImConstant.getType(im) == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
-//				opIm.withValue(
-//						ContactsContract.CommonDataKinds.Im.CUSTOM_PROTOCOL,
-//						im.getType());
-//			}
-//			ops.add(opIm.build());
-//		}
+	// public void updateContact(Context context, Contact preContact, Contact
+	// contact) {
+	// ArrayList<ContentProviderOperation> ops = new
+	// ArrayList<ContentProviderOperation>();
+	// ContentProviderOperation.Builder opName = ContentProviderOperation
+	// .newUpdate(ContactsContract.Data.CONTENT_URI)
+	// .withSelection(ContactsContract.Data._ID,
+	// new String[] { contact.getDataIds().getName() })
+	// .withValue(
+	// ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
+	// contact.getName());
+	// ops.add(opName.build());
+	// ArrayList<Phone> phones = contact.getPhones();
+	// for (int i = 0; i < phones.size(); i++) {
+	// Phone phone = phones.get(i);
+	// ContentProviderOperation.Builder opPhone = ContentProviderOperation
+	// .newUpdate(ContactsContract.Data.CONTENT_URI)
+	// .withSelection(
+	// ContactsContract.Data._ID,
+	// new String[] { contact.getDataIds().getPhones()
+	// .get(i) })
+	// .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER,
+	// phone.getNumber())
+	// .withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
+	// phone.getType());
+	// if (PhoneConstant.getType(phone) == CommonDataKinds.Phone.TYPE_OTHER) {
+	// opPhone.withValue(ContactsContract.CommonDataKinds.Phone.LABEL,
+	// phone.getType());
+	// }
+	// ops.add(opPhone.build());
+	// }
+	// ArrayList<Im> ims = contact.getIms();
+	// for (int i = 0; i < ims.size(); i++) {
+	// Im im = ims.get(i);
+	// ContentProviderOperation.Builder opIm = ContentProviderOperation
+	// .newUpdate(ContactsContract.Data.CONTENT_URI)
+	// .withSelection(
+	// ContactsContract.Data._ID,
+	// new String[] { contact.getDataIds().getIms().get(i) })
+	// .withValue(ContactsContract.CommonDataKinds.Im.DATA,
+	// im.getAccount())
+	// .withValue(ContactsContract.CommonDataKinds.Im.TYPE,
+	// ContactsContract.CommonDataKinds.Im.TYPE_HOME);
+	// if (ImConstant.getType(im) == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
+	// opIm.withValue(
+	// ContactsContract.CommonDataKinds.Im.CUSTOM_PROTOCOL,
+	// im.getType());
+	// }
+	// ops.add(opIm.build());
+	// }
 
-		// ContentProviderOperation.Builder opGroupName =
-		// ContentProviderOperation
-		// .newUpdate(ContactsContract.Data.CONTENT_URI)
-		// .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-		// .withValue(
-		// ContactsContract.Data.MIMETYPE,
-		// ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
-		// .withValue(
-		// ContactsContract.CommonDataKinds.GroupMembership.DISPLAY_NAME,
-		// contact.getName());
-//		ArrayList<String> emails = contact.getEmails();
-//		for (int i = 0; i < emails.size(); i++) {
-//			String email = emails.get(i);
-//			ContentProviderOperation.Builder opEmail = ContentProviderOperation
-//					.newUpdate(ContactsContract.Data.CONTENT_URI)
-//					.withSelection(
-//							ContactsContract.Data._ID,
-//							new String[] { contact.getDataIds().getEmails()
-//									.get(i) })
-//					.withValue(ContactsContract.CommonDataKinds.Email.ADDRESS,
-//							email);
-//			ops.add(opEmail.build());
-//		}
-//		ContentProviderOperation.Builder opAddr = ContentProviderOperation
-//				.newUpdate(ContactsContract.Data.CONTENT_URI)
-//				.withSelection(ContactsContract.Data._ID,
-//						new String[] { contact.getDataIds().getAddr() })
-//				.withValue(
-//						ContactsContract.CommonDataKinds.SipAddress.SIP_ADDRESS,
-//						contact.getAddr());
-//		opAddr.withYieldAllowed(true);
-//		ops.add(opAddr.build());
-//		try {
-//
-//			context.getContentResolver().applyBatch(ContactsContract.AUTHORITY,
-//					ops);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	// ContentProviderOperation.Builder opGroupName =
+	// ContentProviderOperation
+	// .newUpdate(ContactsContract.Data.CONTENT_URI)
+	// .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+	// .withValue(
+	// ContactsContract.Data.MIMETYPE,
+	// ContactsContract.CommonDataKinds.GroupMembership.CONTENT_ITEM_TYPE)
+	// .withValue(
+	// ContactsContract.CommonDataKinds.GroupMembership.DISPLAY_NAME,
+	// contact.getName());
+	// ArrayList<String> emails = contact.getEmails();
+	// for (int i = 0; i < emails.size(); i++) {
+	// String email = emails.get(i);
+	// ContentProviderOperation.Builder opEmail = ContentProviderOperation
+	// .newUpdate(ContactsContract.Data.CONTENT_URI)
+	// .withSelection(
+	// ContactsContract.Data._ID,
+	// new String[] { contact.getDataIds().getEmails()
+	// .get(i) })
+	// .withValue(ContactsContract.CommonDataKinds.Email.ADDRESS,
+	// email);
+	// ops.add(opEmail.build());
+	// }
+	// ContentProviderOperation.Builder opAddr = ContentProviderOperation
+	// .newUpdate(ContactsContract.Data.CONTENT_URI)
+	// .withSelection(ContactsContract.Data._ID,
+	// new String[] { contact.getDataIds().getAddr() })
+	// .withValue(
+	// ContactsContract.CommonDataKinds.SipAddress.SIP_ADDRESS,
+	// contact.getAddr());
+	// opAddr.withYieldAllowed(true);
+	// ops.add(opAddr.build());
+	// try {
+	//
+	// context.getContentResolver().applyBatch(ContactsContract.AUTHORITY,
+	// ops);
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
 
 	public ArrayList<Contact> fetchContactInformation(Context context) {
 		String id;
@@ -263,7 +266,6 @@ public class ContactBussiness {
 			contact.setContactId(id);
 			ArrayList<Phone> phones = new ArrayList<Phone>();
 			ArrayList<Im> ims = new ArrayList<Im>();
-			ArrayList<String> emails = new ArrayList<String>();
 			Uri uri = ContentUris.withAppendedId(
 					ContactsContract.Contacts.CONTENT_URI, Long.valueOf(id));
 			contact.setAvatar(uri.getPath());
@@ -310,9 +312,8 @@ public class ContactBussiness {
 					contact.getDataIds().getIms().add(dataId);
 				} else if (mimetype
 						.equals(ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)) {
-					String email = s1;
-					emails.add(email);
-					contact.getDataIds().getEmails().add(dataId);
+					contact.setEmail(s1);
+					contact.getDataIds().setEmail(dataId);
 				} else if (mimetype
 						.equals(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)) {
 					Phone phone = new Phone();
@@ -329,7 +330,6 @@ public class ContactBussiness {
 					contact.setAddr(s1);
 					contact.getDataIds().setAddr(dataId);
 				}
-				contact.setEmails(emails);
 				contact.setPhones(phones);
 				contact.setIms(ims);
 			}
