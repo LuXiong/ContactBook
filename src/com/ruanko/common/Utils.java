@@ -1,12 +1,17 @@
 package com.ruanko.common;
 
+import java.util.ArrayList;
+
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
 public class Utils {
+	private static int orderState = 0;
+
 	public static void setListViewHeightBasedOnChildren(ListView listView) {
 		ListAdapter listAdapter = listView.getAdapter();
 		if (listAdapter == null) {
@@ -25,6 +30,25 @@ public class Utils {
 		params.height = totalHeight
 				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
 		listView.setLayoutParams(params);
+	}
+
+	public static void setListViewHeightBasedOnChildrenWithFooterHight(
+			Context context, ListView listView, int footerHeight) {
+		ListAdapter listAdapter = listView.getAdapter();
+		if (listAdapter == null) {
+			return;
+		}
+
+		int totalHeight = listAdapter.getCount() * Utils.dip2px(context, 40);
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight
+				+ (listView.getDividerHeight() * (listAdapter.getCount()))
+				+ footerHeight;
+		listView.setLayoutParams(params);
+	}
+
+	public static String getRandomType(ArrayList<String> fromList){
+		return fromList.get((orderState++)%fromList.size());
 	}
 
 	/**

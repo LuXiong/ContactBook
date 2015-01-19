@@ -8,9 +8,7 @@
     <LinearLayout
         android:id="@+id/item_create_contact_add_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:minHeight="40dp"
+        android:layout_height="40dp"
         android:orientation="horizontal" >
 
         <ImageView
@@ -18,16 +16,23 @@
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/green" />
+            android:background="@drawable/item_create_contact_add_img" />
 
         <TextView
+            android:id="@+id/item_create_contact_add_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
             android:text="添加电话"
-            android:textColor="@color/grey_middle"
-            android:textSize="18sp" />
+            android:textColor="@color/blue"
+            android:textSize="14sp" />
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@id/item_create_contact_add_layout"
+        android:background="@color/grey_light" />
 
 </RelativeLayout>

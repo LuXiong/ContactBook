@@ -1,5 +1,7 @@
 package com.ruanko.common;
 
+import java.util.ArrayList;
+
 import android.provider.ContactsContract;
 
 import com.ruanko.model.Im;
@@ -20,4 +22,10 @@ public class ImConstant {
 		}
 		return type;
 	}
-}
+	public static ArrayList<String> getTypeArray(){
+		ArrayList<String> typeList = new ArrayList<String>();
+		typeList.add(QQ);
+		typeList.add(MSN);
+		return typeList;
+	}
+ }

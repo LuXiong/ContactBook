@@ -11,10 +11,12 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.provider.ContactsContract.CommonDataKinds;
 import android.provider.ContactsContract.Data;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.ruanko.common.ImConstant;
 import com.ruanko.common.PhoneConstant;
+import com.ruanko.listener.DataBaseListener;
 import com.ruanko.model.Contact;
 import com.ruanko.model.Im;
 import com.ruanko.model.Phone;
@@ -38,7 +40,10 @@ public class ContactBussiness {
 		}
 	}
 
-	public void createNewContact(Context context, Contact contact) {
+	public void createNewContact(Context context, Contact contact,
+			DataBaseListener listener) {
+		boolean isCreateSuccess = true;
+		listener.onStart();
 		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
 		ContentProviderOperation.Builder opRawContact = ContentProviderOperation
 				.newInsert(ContactsContract.RawContacts.CONTENT_URI)
@@ -60,7 +65,7 @@ public class ContactBussiness {
 								ContactsContract.CommonDataKinds.Phone.NUMBER,
 								phone.getNumber())
 						.withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
-								phone.getType());
+								PhoneConstant.getType(phone));
 				if (PhoneConstant.getType(phone) == CommonDataKinds.Phone.TYPE_OTHER) {
 					opPhone.withValue(
 							ContactsContract.CommonDataKinds.Phone.LABEL,
@@ -82,6 +87,7 @@ public class ContactBussiness {
 								ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE)
 						.withValue(ContactsContract.CommonDataKinds.Im.DATA,
 								im.getAccount())
+						.withValue(ContactsContract.CommonDataKinds.Im.PROTOCOL, ImConstant.getType(im))
 						.withValue(ContactsContract.CommonDataKinds.Im.TYPE,
 								ContactsContract.CommonDataKinds.Im.TYPE_HOME);
 				if (ImConstant.getType(im) == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
@@ -131,8 +137,10 @@ public class ContactBussiness {
 			ops.add(opAddr.build());
 		}
 
-		if (contact.getName() == null) {
-			Toast.makeText(context, "姓名不能为空", Toast.LENGTH_LONG).show();
+		if (TextUtils.isEmpty(contact.getName())) {
+			listener.onFailure("姓名不能为空！");
+			listener.onFinish();
+			return;
 		} else {
 			ContentProviderOperation.Builder opName = ContentProviderOperation
 					.newInsert(ContactsContract.Data.CONTENT_URI)
@@ -149,11 +157,18 @@ public class ContactBussiness {
 		}
 
 		try {
-
 			context.getContentResolver().applyBatch(ContactsContract.AUTHORITY,
 					ops);
 		} catch (Exception e) {
+			isCreateSuccess = false;
 			e.printStackTrace();
+		} finally {
+			if (isCreateSuccess) {
+				listener.onSuccess();
+			} else {
+				listener.onFailure("failure");
+			}
+			listener.onFinish();
 		}
 	}
 
@@ -308,6 +323,7 @@ public class ContactBussiness {
 					Im im = new Im();
 					im.setType(getImLabel(Integer.parseInt(s5), s6));
 					im.setAccount(s1);
+					im.setId(dataId);
 					ims.add(im);
 					contact.getDataIds().getIms().add(dataId);
 				} else if (mimetype
@@ -319,6 +335,7 @@ public class ContactBussiness {
 					Phone phone = new Phone();
 					phone.setNumber(s1);
 					phone.setType(getPhoneLable(Integer.parseInt(s2), s3));
+					phone.setId(dataId);
 					phones.add(phone);
 					contact.getDataIds().getPhones().add(dataId);
 				} else if (mimetype

@@ -11,6 +11,7 @@ public class Im implements Serializable, NameTypeInterface {
 	private static final long serialVersionUID = 945594020709374261L;
 	private String account;
 	private String type;
+	private String id;
 
 	public String getAccount() {
 		return account;
@@ -26,6 +27,18 @@ public class Im implements Serializable, NameTypeInterface {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override

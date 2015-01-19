@@ -14,6 +14,8 @@ public class Phone implements Serializable, NameTypeInterface {
 	private String type;
 
 	private String number;
+	
+	private String id;
 
 	public String getType() {
 		return type;
@@ -30,7 +32,13 @@ public class Phone implements Serializable, NameTypeInterface {
 	public void setNumber(String number) {
 		this.number = number;
 	}
+	public String getId() {
+		return id;
+	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
 	@Override
 	public String toString() {
 		return "Phone [type=" + type + ", number=" + number + "]";

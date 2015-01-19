@@ -1,11 +1,13 @@
 package com.ruanko.common;
 
+import java.util.ArrayList;
+
 import android.provider.ContactsContract;
 
 import com.ruanko.model.Phone;
 
 public class PhoneConstant {
-	final static public String TYPE_MOBILE = "移动";
+	final static public String TYPE_MOBILE = "手机";
 	final static public String TYPE_HOME = "住宅";
 	final static public String TYPE_WORK = "工作";
 	final static public String TYPE_OTHER= "other";
@@ -23,5 +25,12 @@ public class PhoneConstant {
 		}
 		return type;
 	}
-
+	
+	public static ArrayList<String> getTypeArray(){
+		ArrayList<String> typeList = new ArrayList<String>();
+		typeList.add(TYPE_MOBILE);
+		typeList.add(TYPE_HOME);
+		typeList.add(TYPE_WORK);
+		return typeList;
+	}
 }

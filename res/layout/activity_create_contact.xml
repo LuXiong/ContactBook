@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#cccccc" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -10,36 +16,92 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp" >
 
-            <EditText
-                android:id="@+id/activity_create_contact_name_edit"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:hint="姓名" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/activity_create_contact_name_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:hint="姓名"
+                    android:singleLine="true"
+                    android:textColor="@color/grey_middle" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/grey_light" />
 
             <ListView
                 android:id="@+id/activity_create_contact_phone_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:overScrollMode="never"
+                android:divider="@null" />
 
             <ListView
                 android:id="@+id/activity_create_contact_im_list"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:id="@+id/activity_create_contact_email_edit"
-                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="邮箱" />
+                android:overScrollMode="never"
+                android:divider="@null" />
 
-            <EditText
-                android:id="@+id/activity_create_contact_addr_edit"
-                android:layout_width="80dp"
-                android:layout_height="wrap_content"
-                android:hint="地址" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/activity_create_contact_email_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:hint="邮箱"
+                    android:textColor="@color/grey_middle" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/grey_light" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/activity_create_contact_addr_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:background="@null"
+                    android:hint="地址"
+                    android:textColor="@color/grey_middle" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/grey_light" />
         </LinearLayout>
     </ScrollView>
 
