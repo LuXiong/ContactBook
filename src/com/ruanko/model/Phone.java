@@ -1,7 +1,10 @@
 package com.ruanko.model;
+
 import java.io.Serializable;
 
-public class Phone implements Serializable{
+import com.ruanko.common.NameTypeInterface;
+
+public class Phone implements Serializable, NameTypeInterface {
 
 	/**
 	 * 
@@ -40,5 +43,15 @@ public class Phone implements Serializable{
 	public Phone(String type, String number) {
 		this.type = type;
 		this.number = number;
+	}
+
+	@Override
+	public String getModelName() {
+		return this.number;
+	}
+
+	@Override
+	public String getModelType() {
+		return this.type;
 	}
 }
