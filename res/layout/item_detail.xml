@@ -3,19 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <TextView 
-    android:layout_width="280dp"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:id="@+id/phone_title"
-        />
-    <TextView 
-    android:layout_width="280dp"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:id="@+id/phone_value"
-        />
+
+    <TextView
+        android:id="@+id/type_value"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+
+    <TextView
+        android:id="@+id/string_value"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
+
+    <ImageButton
+        android:id="@+id/activity_detail_messageBtn"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#00000000"
+        android:src="@drawable/duanxin1" />
+
+    <ImageButton
+        android:id="@+id/activity_detail_callBtn"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#00000000"
+        android:src="@drawable/hujiao1"/>
 
 </LinearLayout>
