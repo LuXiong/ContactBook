@@ -4,32 +4,58 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/type_value"
-        android:layout_width="280dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/string_value"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp" />
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
 
-    <ImageButton
-        android:id="@+id/activity_detail_messageBtn"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#00000000"
-        android:src="@drawable/duanxin1" />
+            <TextView
+                android:id="@+id/activity_detail_item_type_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
 
-    <ImageButton
-        android:id="@+id/activity_detail_callBtn"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:background="#00000000"
-        android:src="@drawable/hujiao1"/>
+            <TextView
+                android:id="@+id/activity_detail_item_string_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:id="@+id/activity_detail_messageBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="10dp"
+                android:background="#00000000"
+                android:src="@drawable/item_phone_message_img" />
+
+            <ImageButton
+                android:id="@+id/activity_detail_callBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#00000000"
+                android:src="@drawable/item_phone_call_img" />
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
