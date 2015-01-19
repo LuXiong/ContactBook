@@ -12,6 +12,7 @@
         android:orientation="vertical" >
 
         <LinearLayout
+            android:id="@+id/item_create_contact_edit_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="40dp"
@@ -25,6 +26,7 @@
                 android:background="@color/red" />
 
             <TextView
+                android:id="@+id/item_create_contact_phone_type_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -40,6 +42,7 @@
                 android:background="@color/grey_light" />
 
             <EditText
+                android:id="@+id/item_create_contact_content_editText"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -48,6 +51,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/item_create_contact_add_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="40dp"
