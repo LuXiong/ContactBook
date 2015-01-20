@@ -147,6 +147,7 @@ public class DetailActivity extends BaseActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
+		setTitle("联系人信息");
 		setRightResource(R.drawable.item_edit);
 		hideSearchBtn();
 		return result;

@@ -105,7 +105,7 @@ public class PhoneAdapter extends BaseAdapter {
 			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:"
 					+ phoneNumber));//
 			intent.setType("vnd.android-dir/mms-sms");
-			intent.setData(Uri.parse("content:"+phoneNumber));//此为号码
+		//	intent.setData(Uri.parse("content:"+phoneNumber));//此为号码
 			mContext.startActivity(intent);
 		}
 
