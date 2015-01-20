@@ -317,7 +317,7 @@ public class CreateContactActivity extends BaseActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
-		setRightTitle("完成");
+		setRightResource(R.drawable.item_create_contact_finish_img);
 		hideSearchBtn();
 		if (mState == STATE_CREATE) {
 			setTitle("新建联系人");
