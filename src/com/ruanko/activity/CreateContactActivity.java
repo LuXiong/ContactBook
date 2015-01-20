@@ -98,24 +98,26 @@ public class CreateContactActivity extends BaseActivity {
 		mImAdapter
 				.setOnAccountEditTextChangedListener(new ImEditChangeListener());
 		setOnRightBtnClickListener(new FinishClickListener());
-		if (mContact != null && mState == STATE_EDIT) {
-			mNameEditText.setText(mContact.getName());
-			mEmailEditText.setText(mContact.getEmail());
-			mAddrEditText.setText(mContact.getAddr());
-		}
+
 		notifyDataSetChanged();
 	}
 
 	private void loadData() {
 		mContact = (Contact) getIntent().getSerializableExtra(EXTRA_INPUT);
+
 		if (mContact != null) {
 			mPhoneList.clear();
 			mPhoneList.addAll(mContact.getPhones());
 			mImList.clear();
 			mImList.addAll(mContact.getIms());
 			mState = STATE_EDIT;
+			mNameEditText.setText(mContact.getName());
+			mEmailEditText.setText(mContact.getEmail());
+			mAddrEditText.setText(mContact.getAddr());
+
 			notifyDataSetChanged();
 		}
+		mNameEditText.requestFocus();
 	}
 
 	private void notifyDataSetChanged() {
@@ -220,8 +222,8 @@ public class CreateContactActivity extends BaseActivity {
 					null);
 			if (mState == STATE_CREATE) {
 				ContactBussiness contactBussiness = new ContactBussiness();
-				contactBussiness.updateContact(CreateContactActivity.this,
-						mContact, contact, new DataBaseListener() {
+				contactBussiness.createNewContact(CreateContactActivity.this,
+						contact, new DataBaseListener() {
 
 							@Override
 							public void onSuccess() {
@@ -231,6 +233,7 @@ public class CreateContactActivity extends BaseActivity {
 										DetailActivity.class);
 								intent.putExtra(DetailActivity.EXTRA_INPUT,
 										contact);
+								startActivity(intent);
 							}
 
 							@Override
@@ -243,7 +246,70 @@ public class CreateContactActivity extends BaseActivity {
 						});
 			}
 			if (mState == STATE_EDIT) {
+				ContactBussiness contactBussiness = new ContactBussiness();
+				contactBussiness.deleteContact(CreateContactActivity.this,
+						mContact, new DataBaseListener() {
 
+							@Override
+							public void onFailure(String info) {
+								Toast.makeText(CreateContactActivity.this,
+										info, Toast.LENGTH_LONG).show();
+							}
+
+							@Override
+							public void onSuccess() {
+								ContactBussiness service = new ContactBussiness();
+								service.createNewContact(
+										CreateContactActivity.this, contact,
+										new DataBaseListener() {
+											@Override
+											public void onSuccess() {
+												CreateContactActivity.this
+														.finish();
+												Intent intent = new Intent(
+														CreateContactActivity.this,
+														DetailActivity.class);
+												intent.putExtra(
+														DetailActivity.EXTRA_INPUT,
+														contact);
+												startActivity(intent);
+											}
+
+											@Override
+											public void onFailure(String info) {
+												Toast.makeText(
+														CreateContactActivity.this,
+														info, Toast.LENGTH_LONG)
+														.show();
+												super.onFailure(info);
+											}
+										});
+							}
+
+						});
+				// ContactBussiness contactBussiness = new ContactBussiness();
+				// contactBussiness.updateContact(CreateContactActivity.this,
+				// mContact, contact, new DataBaseListener() {
+				//
+				// @Override
+				// public void onSuccess() {
+				// CreateContactActivity.this.finish();
+				// Intent intent = new Intent(
+				// CreateContactActivity.this,
+				// DetailActivity.class);
+				// intent.putExtra(DetailActivity.EXTRA_INPUT,
+				// contact);
+				// startActivity(intent);
+				// }
+				//
+				// @Override
+				// public void onFailure(String info) {
+				// Toast.makeText(CreateContactActivity.this,
+				// info, Toast.LENGTH_LONG).show();
+				// super.onFailure(info);
+				// }
+				//
+				// });
 			}
 		}
 	}
@@ -253,10 +319,10 @@ public class CreateContactActivity extends BaseActivity {
 		boolean result = super.onCreateOptionsMenu(menu);
 		setRightTitle("完成");
 		hideSearchBtn();
-		if(mState==STATE_CREATE){
+		if (mState == STATE_CREATE) {
 			setTitle("新建联系人");
 		}
-		if(mState==STATE_EDIT){
+		if (mState == STATE_EDIT) {
 			setTitle("编辑联系人");
 		}
 		return result;

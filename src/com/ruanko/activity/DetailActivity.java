@@ -35,14 +35,13 @@ public class DetailActivity extends BaseActivity {
 
 	private ScrollView mScrollView;
 	private ImageButton mDelBtn;
-	private TextView mNameTextView, mAddrTextView,
-			mEmailTextView;
-	private ListView mPhoneListView,mImListView;
-	
+	private TextView mNameTextView, mAddrTextView, mEmailTextView;
+	private ListView mPhoneListView, mImListView;
+
 	private PhoneAdapter mPhoneAdapter;
 	private ImAdapter mImAdapter;
-	
-	private ArrayList<NameTypeInterface> mPhoneList,mImList;
+
+	private ArrayList<NameTypeInterface> mPhoneList, mImList;
 
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -60,7 +59,7 @@ public class DetailActivity extends BaseActivity {
 		mPhoneList.addAll(mContact.getPhones());
 		mImList.clear();
 		mPhoneList.addAll(mContact.getIms());
-		//Log.v("zhouyezi", "mPhoneListSize:"+mPhoneList.size());
+		// Log.v("zhouyezi", "mPhoneListSize:"+mPhoneList.size());
 		notifyDatasetChanged();
 	}
 
@@ -70,23 +69,22 @@ public class DetailActivity extends BaseActivity {
 		mNameTextView = (TextView) findViewById(R.id.activity_detail_name);
 		mAddrTextView = (TextView) findViewById(R.id.activity_detail_address);
 		mEmailTextView = (TextView) findViewById(R.id.activity_detail_email);
-	    mPhoneListView = (ListView) findViewById(R.id.activity_detail_phone_listView);
+		mPhoneListView = (ListView) findViewById(R.id.activity_detail_phone_listView);
 		mImListView = (ListView) findViewById(R.id.activity_detail_Im_listView);
 	}
 
 	private void initView() {
 
 		mPhoneList = new ArrayList<NameTypeInterface>();
-		mPhoneAdapter = new PhoneAdapter(mPhoneList,this);
+		mPhoneAdapter = new PhoneAdapter(mPhoneList, this);
 		mPhoneListView.setAdapter(mPhoneAdapter);
 		mPhoneListView.setFastScrollEnabled(true);
-	
-	
+
 		mImList = new ArrayList<NameTypeInterface>();
-		mImAdapter = new ImAdapter(mImList,this);
+		mImAdapter = new ImAdapter(mImList, this);
 		mImListView.setAdapter(mImAdapter);
 		mImListView.setFastScrollEnabled(true);
-		
+
 		bindEvent();
 	}
 
@@ -106,7 +104,9 @@ public class DetailActivity extends BaseActivity {
 			@Override
 			public void onClick(MenuItem item) {
 				Intent intent = new Intent();
-				intent.setClass(DetailActivity.this, EditActivity.class);
+				intent.setClass(DetailActivity.this,
+						CreateContactActivity.class);
+				intent.putExtra(CreateContactActivity.EXTRA_INPUT, mContact);
 				startActivity(intent);
 
 			}
@@ -114,7 +114,7 @@ public class DetailActivity extends BaseActivity {
 	}
 
 	private void notifyDatasetChanged() {
-		if(mContact!=null){
+		if (mContact != null) {
 			mNameTextView.setText(mContact.getName());
 			mAddrTextView.setText(mContact.getAddr());
 			mEmailTextView.setText(mContact.getEmail());
@@ -123,9 +123,9 @@ public class DetailActivity extends BaseActivity {
 			Utils.setListViewHeightBasedOnChildren(mPhoneListView);
 			Utils.setListViewHeightBasedOnChildren(mImListView);
 			/**
-			mImAdapter.notifyDataSetChanged();
-			mImListView.setAdapter(mImAdapter);
-			**/
+			 * mImAdapter.notifyDataSetChanged();
+			 * mImListView.setAdapter(mImAdapter);
+			 **/
 		}
 	}
 

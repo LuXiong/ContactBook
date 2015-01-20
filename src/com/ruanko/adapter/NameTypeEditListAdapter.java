@@ -23,6 +23,7 @@ public class NameTypeEditListAdapter extends BaseAdapter {
 
 	private Context mContext;
 	private ArrayList<NameTypeInterface> mList;
+	private EditText mEditText;
 	private EditTextChangedListener mAccountEditTextChangedListener;
 	private DeleteItemClickListener mDeleteItemClickListener;
 
@@ -66,7 +67,7 @@ public class NameTypeEditListAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-
+		holder.accountEditText.requestFocus();
 		NameTypeInterface item = mList.get(position);
 		if (item != null) {
 			holder.deleteImg.setOnClickListener(new DeleteLayoutClickListener(
@@ -79,7 +80,6 @@ public class NameTypeEditListAdapter extends BaseAdapter {
 
 		return convertView;
 	}
-
 	private void mListEmptyCheck() {
 		if (mList.isEmpty()) {
 			mList.add(new NameTypeInterface() {

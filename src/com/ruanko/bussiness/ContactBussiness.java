@@ -23,20 +23,29 @@ import com.ruanko.model.Phone;
 
 public class ContactBussiness {
 
-	public void deleteContact(Context context, Contact contact) {
+	public void deleteContact(Context context, Contact contact,
+			DataBaseListener listener) {
+		boolean isDeleteSuccess = true;
+		listener.onStart();
 		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
 		ContentProviderOperation.Builder opRawContact = ContentProviderOperation
-				.newDelete(ContactsContract.RawContacts.CONTENT_URI)
-				.withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
-				.withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null)
-				.withSelection(ContactsContract.RawContacts._ID,
-						new String[] { contact.getContactId() });
+				.newDelete(ContentUris.withAppendedId(
+						ContactsContract.RawContacts.CONTENT_URI,
+						Long.valueOf(contact.getContactId())));
 		ops.add(opRawContact.build());
 		try {
 			context.getContentResolver().applyBatch(ContactsContract.AUTHORITY,
 					ops);
 		} catch (Exception e) {
+			isDeleteSuccess = false;
 			e.printStackTrace();
+		} finally {
+			if (isDeleteSuccess) {
+				listener.onSuccess();
+			} else {
+				listener.onFailure(null);
+			}
+			listener.onFinish();
 		}
 	}
 
@@ -174,7 +183,7 @@ public class ContactBussiness {
 		ArrayList<Phone> deletePhones = new ArrayList<Phone>();
 		ArrayList<Phone> updataPhones = new ArrayList<Phone>();
 		for (Phone phone : afterPhones) {
-			if (!TextUtils.isEmpty(phone.getId())) {
+			if (TextUtils.isEmpty(phone.getId())) {
 				insertPhones.add(phone);
 			} else {
 				if (prePhones.contains(phone)) {
@@ -190,7 +199,7 @@ public class ContactBussiness {
 		ArrayList<Im> deleteIms = new ArrayList<Im>();
 		ArrayList<Im> updateIms = new ArrayList<Im>();
 		for (Im im : afterIms) {
-			if (!TextUtils.isEmpty(im.getId())) {
+			if (TextUtils.isEmpty(im.getId())) {
 				insertIms.add(im);
 			} else {
 				if (preIms.contains(im)) {
@@ -201,182 +210,202 @@ public class ContactBussiness {
 			}
 		}
 		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
-		if (insertPhones != null) {
-			for (int i = 0; i < insertPhones.size(); i++) {
-				Phone phone = insertPhones.get(i);
-				ContentProviderOperation.Builder opInsertPhone = ContentProviderOperation
-						.newInsert(ContactsContract.Data.CONTENT_URI)
-						.withValue(ContactsContract.Data.RAW_CONTACT_ID,
-								contact.getContactId())
-						.withValue(
-								ContactsContract.CommonDataKinds.Phone.NUMBER,
-								phone.getNumber())
-						.withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
-								PhoneConstant.getType(phone));
-				if (PhoneConstant.getType(phone) == CommonDataKinds.Phone.TYPE_OTHER) {
-					opInsertPhone.withValue(
-							ContactsContract.CommonDataKinds.Phone.LABEL,
-							phone.getType());
-				}
-				ops.add(opInsertPhone.build());
-			}
-		}
-		if (insertIms != null) {
-			for (int i = 0; i < insertIms.size(); i++) {
-				Im im = insertIms.get(i);
-				ContentProviderOperation.Builder opInsertIm = ContentProviderOperation
-						.newInsert(ContactsContract.Data.CONTENT_URI)
-						.withValue(
-								ContactsContract.Data.MIMETYPE,
-								ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE)
-						.withValue(ContactsContract.CommonDataKinds.Im.DATA,
-								im.getAccount())
-						.withValue(ContactsContract.CommonDataKinds.Im.TYPE,
-								ContactsContract.CommonDataKinds.Im.TYPE_HOME)
-						.withValue(
-								ContactsContract.CommonDataKinds.Im.PROTOCOL,
-								ImConstant.getType(im));
-				if (ImConstant.getType(im) == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
-					opInsertIm
-							.withValue(
-									ContactsContract.CommonDataKinds.Im.CUSTOM_PROTOCOL,
-									im.getType());
-				}
-				ops.add(opInsertIm.build());
-			}
-		}
-		if (updataPhones != null) {
-			for (int i = 0; i < updataPhones.size(); i++) {
-				Phone phone = updataPhones.get(i);
-				ContentProviderOperation.Builder opUpdatePhone = ContentProviderOperation
-						.newUpdate(ContactsContract.Data.CONTENT_URI)
-						.withValue(ContactsContract.Data.RAW_CONTACT_ID,
-								contact.getContactId())
-						.withSelection(ContactsContract.Data._ID,
-								new String[] { phone.getId() })
-						.withValue(
-								ContactsContract.CommonDataKinds.Phone.NUMBER,
-								phone.getNumber())
-						.withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
-								PhoneConstant.getType(phone));
-				if (PhoneConstant.getType(phone) == CommonDataKinds.Phone.TYPE_OTHER) {
-					opUpdatePhone.withValue(
-							ContactsContract.CommonDataKinds.Phone.LABEL,
-							phone.getType());
-				}
-				ops.add(opUpdatePhone.build());
-			}
-		}
-		if (updateIms != null) {
-			for (int i = 0; i < updateIms.size(); i++) {
-				Im im = updateIms.get(i);
-				ContentProviderOperation.Builder opUpdateIm = ContentProviderOperation
-						.newUpdate(ContactsContract.Data.CONTENT_URI)
-						.withSelection(ContactsContract.Data._ID,
-								new String[] { im.getId() })
-						.withValue(
-								ContactsContract.Data.MIMETYPE,
-								ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE)
-						.withValue(ContactsContract.CommonDataKinds.Im.DATA,
-								im.getAccount())
-						.withValue(ContactsContract.CommonDataKinds.Im.TYPE,
-								ContactsContract.CommonDataKinds.Im.TYPE_HOME)
-						.withValue(
-								ContactsContract.CommonDataKinds.Im.PROTOCOL,
-								ImConstant.getType(im));
-				if (ImConstant.getType(im) == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
-					opUpdateIm
-							.withValue(
-									ContactsContract.CommonDataKinds.Im.CUSTOM_PROTOCOL,
-									im.getType());
-				}
-				ops.add(opUpdateIm.build());
-			}
-		}
-		if (deletePhones != null) {
-			for (int i = 0; i < deletePhones.size(); i++) {
-				Phone phone = deletePhones.get(i);
-				ContentProviderOperation.Builder opDeletePhone = ContentProviderOperation
-						.newDelete(ContactsContract.Data.CONTENT_URI)
-						.withSelection(ContactsContract.Data._ID,
-								new String[] { phone.getId() });
+		// ContentProviderOperation.Builder opRawContact =
+		// ContentProviderOperation
+		// .newInsert(ContactsContract.RawContacts.CONTENT_URI)
+		// .withValue(ContactsContract.Data.RAW_CONTACT_ID,
+		// contact.getContactId())
+		// .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+		// .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null);
+		// ops.add(opRawContact.build());
 
-				ops.add(opDeletePhone.build());
-			}
-		}
-		if (deleteIms != null) {
-			for (int i = 0; i < deleteIms.size(); i++) {
-				Im im = deleteIms.get(i);
-				ContentProviderOperation.Builder opDeleteIm = ContentProviderOperation
-						.newDelete(ContactsContract.Data.CONTENT_URI)
-						.withSelection(ContactsContract.Data._ID,
-								new String[] { im.getId() });
-				if (ImConstant.getType(im) == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
-					opDeleteIm
-							.withValue(
-									ContactsContract.CommonDataKinds.Im.CUSTOM_PROTOCOL,
-									im.getType());
-				}
-				ops.add(opDeleteIm.build());
-			}
-		}
+		// if (insertPhones != null) {
+		// for (int i = 0; i < insertPhones.size(); i++) {
+		// Phone phone = insertPhones.get(i);
+		// ContentProviderOperation.Builder opInsertPhone =
+		// ContentProviderOperation
+		// .newInsert(ContactsContract.Data.CONTENT_URI)
+		// .withSelectionBackReference(selectionArgIndex,
+		// previousResult)withValue(
+		// ContactsContract.Data.RAW_CONTACT_ID, 1)
+		// .withValue(
+		// ContactsContract.CommonDataKinds.Phone.NUMBER,
+		// phone.getNumber())
+		// .withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
+		// PhoneConstant.getType(phone));
+		// if (PhoneConstant.getType(phone) == CommonDataKinds.Phone.TYPE_OTHER)
+		// {
+		// opInsertPhone.withValue(
+		// ContactsContract.CommonDataKinds.Phone.LABEL,
+		// phone.getType());
+		// }
+		// ops.add(opInsertPhone.build());
+		// }
+		// }
+		// if (insertIms != null) {
+		// for (int i = 0; i < insertIms.size(); i++) {
+		// Im im = insertIms.get(i);
+		// ContentProviderOperation.Builder opInsertIm =
+		// ContentProviderOperation
+		// .newInsert(ContactsContract.Data.CONTENT_URI)
+		// .withValueBackReference(
+		// ContactsContract.Data.RAW_CONTACT_ID, 0)
+		// .withValue(
+		// ContactsContract.Data.MIMETYPE,
+		// ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE)
+		// .withValue(ContactsContract.CommonDataKinds.Im.DATA,
+		// im.getAccount())
+		// .withValue(ContactsContract.CommonDataKinds.Im.TYPE,
+		// ContactsContract.CommonDataKinds.Im.TYPE_HOME)
+		// .withValue(
+		// ContactsContract.CommonDataKinds.Im.PROTOCOL,
+		// ImConstant.getType(im));
+		// if (ImConstant.getType(im) == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
+		// opInsertIm
+		// .withValue(
+		// ContactsContract.CommonDataKinds.Im.CUSTOM_PROTOCOL,
+		// im.getType());
+		// }
+		// ops.add(opInsertIm.build());
+		// }
+		// }
+		// if (updataPhones != null) {
+		// for (int i = 0; i < updataPhones.size(); i++) {
+		// Phone phone = updataPhones.get(i);
+		// ContentProviderOperation.Builder opUpdatePhone =
+		// ContentProviderOperation
+		// .newUpdate(ContactsContract.Data.CONTENT_URI)
+		// .withValue(ContactsContract.Data.RAW_CONTACT_ID,
+		// contact.getContactId())
+		// .withSelection(ContactsContract.Data._ID,
+		// new String[] { phone.getId() })
+		// .withValue(
+		// ContactsContract.CommonDataKinds.Phone.NUMBER,
+		// phone.getNumber())
+		// .withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
+		// PhoneConstant.getType(phone));
+		// if (PhoneConstant.getType(phone) == CommonDataKinds.Phone.TYPE_OTHER)
+		// {
+		// opUpdatePhone.withValue(
+		// ContactsContract.CommonDataKinds.Phone.LABEL,
+		// phone.getType());
+		// }
+		// ops.add(opUpdatePhone.build());
+		// }
+		// }
+		// if (updateIms != null) {
+		// for (int i = 0; i < updateIms.size(); i++) {
+		// Im im = updateIms.get(i);
+		// ContentProviderOperation.Builder opUpdateIm =
+		// ContentProviderOperation
+		// .newUpdate(ContactsContract.Data.CONTENT_URI)
+		// .withSelection(ContactsContract.Data._ID,
+		// new String[] { im.getId() })
+		// .withValue(
+		// ContactsContract.Data.MIMETYPE,
+		// ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE)
+		// .withValue(ContactsContract.CommonDataKinds.Im.DATA,
+		// im.getAccount())
+		// .withValue(ContactsContract.CommonDataKinds.Im.TYPE,
+		// ContactsContract.CommonDataKinds.Im.TYPE_HOME)
+		// .withValue(
+		// ContactsContract.CommonDataKinds.Im.PROTOCOL,
+		// ImConstant.getType(im));
+		// if (ImConstant.getType(im) == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
+		// opUpdateIm
+		// .withValue(
+		// ContactsContract.CommonDataKinds.Im.CUSTOM_PROTOCOL,
+		// im.getType());
+		// }
+		// ops.add(opUpdateIm.build());
+		// }
+		// }
+		// if (deletePhones != null) {
+		// for (int i = 0; i < deletePhones.size(); i++) {
+		// Phone phone = deletePhones.get(i);
+		// ContentProviderOperation.Builder opDeletePhone =
+		// ContentProviderOperation
+		// .newDelete(ContactsContract.Data.CONTENT_URI)
+		// .withSelection(ContactsContract.Data._ID,
+		// new String[] { phone.getId() });
+		//
+		// ops.add(opDeletePhone.build());
+		// }
+		// }
+		// if (deleteIms != null) {
+		// for (int i = 0; i < deleteIms.size(); i++) {
+		// Im im = deleteIms.get(i);
+		// ContentProviderOperation.Builder opDeleteIm =
+		// ContentProviderOperation
+		// .newDelete(ContactsContract.Data.CONTENT_URI)
+		// .withSelection(ContactsContract.Data._ID,
+		// new String[] { im.getId() });
+		// if (ImConstant.getType(im) == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
+		// opDeleteIm
+		// .withValue(
+		// ContactsContract.CommonDataKinds.Im.CUSTOM_PROTOCOL,
+		// im.getType());
+		// }
+		// ops.add(opDeleteIm.build());
+		// }
+		// }
 
-		if (TextUtils.isEmpty(preContact.getAddr())) {
-			if (contact.getAddr() != null) {
-				ContentProviderOperation.Builder opAddr = ContentProviderOperation
-						.newInsert(ContactsContract.Data.CONTENT_URI)
-						.withValue(ContactsContract.Data.RAW_CONTACT_ID,
-								contact.getContactId())
-						.withValue(
-								ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS,
-								contact.getAddr());
-				ops.add(opAddr.build());
-			}
-		} else {
-			ContentProviderOperation.Builder opAddr = ContentProviderOperation
-					.newUpdate(ContactsContract.Data.CONTENT_URI)
-					.withSelection(ContactsContract.Data._ID,
-							new String[] { contact.getDataIds().getAddr() })
-					.withValue(
-							ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS,
-							contact.getAddr());
-			ops.add(opAddr.build());
-		}
-		if (TextUtils.isEmpty(preContact.getEmail())) {
-			if (contact.getEmail() != null) {
-				ContentProviderOperation.Builder opEmail = ContentProviderOperation
-						.newInsert(ContactsContract.Data.CONTENT_URI)
-						.withValue(ContactsContract.Data.RAW_CONTACT_ID,
-								contact.getContactId())
-						.withValue(
-								ContactsContract.CommonDataKinds.Email.ADDRESS,
-								contact.getEmail());
-				ops.add(opEmail.build());
-			}
-		} else {
-			ContentProviderOperation.Builder opEmail = ContentProviderOperation
-					.newUpdate(ContactsContract.Data.CONTENT_URI)
-					.withSelection(ContactsContract.Data._ID,
-							new String[] { contact.getDataIds().getEmail() })
-					.withValue(ContactsContract.CommonDataKinds.Email.ADDRESS,
-							contact.getEmail());
-			ops.add(opEmail.build());
-		}
-		if (TextUtils.isEmpty(contact.getName())) {
-			listener.onFailure("姓名不能为空！");
-			listener.onFinish();
-			return;
-		} else {
-			ContentProviderOperation.Builder opName = ContentProviderOperation
-					.newUpdate(ContactsContract.Data.CONTENT_URI)
-					.withSelection(ContactsContract.Data._ID,
-							new String[] { contact.getDataIds().getName() })
-					.withValue(
-							ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
-							contact.getName());
-			opName.withYieldAllowed(true);
-			ops.add(opName.build());
-		}
+		// if (TextUtils.isEmpty(preContact.getAddr())) {
+		// if (contact.getAddr() != null) {
+		// ContentProviderOperation.Builder opAddr = ContentProviderOperation
+		// .newInsert(ContactsContract.Data.CONTENT_URI)
+		// .withValue(ContactsContract.Data.RAW_CONTACT_ID,
+		// contact.getContactId())
+		// .withValue(
+		// ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS,
+		// contact.getAddr());
+		// ops.add(opAddr.build());
+		// }
+		// } else {
+		// ContentProviderOperation.Builder opAddr = ContentProviderOperation
+		// .newUpdate(ContactsContract.Data.CONTENT_URI)
+		// .withSelection(ContactsContract.Data._ID,
+		// new String[] { contact.getDataIds().getAddr() })
+		// .withValue(
+		// ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS,
+		// contact.getAddr());
+		// ops.add(opAddr.build());
+		// }
+		// if (TextUtils.isEmpty(preContact.getEmail())) {
+		// if (contact.getEmail() != null) {
+		// ContentProviderOperation.Builder opEmail = ContentProviderOperation
+		// .newInsert(ContactsContract.Data.CONTENT_URI)
+		// .withValue(ContactsContract.Data.RAW_CONTACT_ID,
+		// contact.getContactId())
+		// .withValue(
+		// ContactsContract.CommonDataKinds.Email.ADDRESS,
+		// contact.getEmail());
+		// ops.add(opEmail.build());
+		// }
+		// } else {
+		// ContentProviderOperation.Builder opEmail = ContentProviderOperation
+		// .newUpdate(ContactsContract.Data.CONTENT_URI)
+		// .withSelection(ContactsContract.Data._ID,
+		// new String[] { contact.getDataIds().getEmail() })
+		// .withValue(ContactsContract.CommonDataKinds.Email.ADDRESS,
+		// contact.getEmail());
+		// ops.add(opEmail.build());
+		// }
+		// if (TextUtils.isEmpty(contact.getName())) {
+		// listener.onFailure("姓名不能为空！");
+		// listener.onFinish();
+		// return;
+		// } else {
+		// ContentProviderOperation.Builder opName = ContentProviderOperation
+		// .newUpdate(ContactsContract.Data.CONTENT_URI)
+		// .withSelection(ContactsContract.Data._ID,
+		// new String[] { contact.getDataIds().getName() })
+		// .withValue(
+		// ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
+		// contact.getName());
+		// opName.withYieldAllowed(true);
+		// ops.add(opName.build());
+		// }
 		try {
 
 			context.getContentResolver().applyBatch(ContactsContract.AUTHORITY,

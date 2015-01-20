@@ -26,11 +26,12 @@
             android:text="手机"
             android:textColor="@color/blue"
             android:textSize="14sp" />
-        <ImageView 
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
-            android:src="@drawable/item_create_contact_arraw_img"/>
+            android:src="@drawable/item_create_contact_arraw_img" />
 
         <ImageView
             android:layout_width="1px"
@@ -44,7 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
-            android:background="@null" />
+            android:background="@null"
+            android:textColor="@color/grey_middle" />
     </LinearLayout>
 
     <ImageView
