@@ -59,22 +59,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp" >
 
-            <TextView
-                android:id="@+id/activity_edit_phone_textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <Button
+                android:id="@+id/activity_edit_phone_items"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
+                android:gravity="left"
                 android:text="@string/phone"
-                android:textSize="16px" >
-            </TextView>
-
+                android:textSize="16px" 
+                android:background="#00000000"
+               />
+           
             <EditText
                 android:id="@+id/activity_edit_phone_editText"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp" />
         </TableRow>
-
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
