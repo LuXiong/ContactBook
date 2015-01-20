@@ -3,32 +3,26 @@ package com.ruanko.activity;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract.DeletedContacts;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.ruanko.adapter.ContactListAdapter;
 import com.ruanko.adapter.ImAdapter;
 import com.ruanko.adapter.PhoneAdapter;
 import com.ruanko.bussiness.ContactBussiness;
-import com.ruanko.common.ContactItemInterface;
 import com.ruanko.common.NameTypeInterface;
 import com.ruanko.common.Utils;
 import com.ruanko.contactbook.BaseActivity;
 import com.ruanko.contactbook.R;
+import com.ruanko.listener.DataBaseListener;
 import com.ruanko.model.Contact;
 
 public class DetailActivity extends BaseActivity {
@@ -37,7 +31,6 @@ public class DetailActivity extends BaseActivity {
 
 	private Contact mContact;
 
-	private ScrollView mScrollView;
 	private ImageButton mDelBtn;
 	private TextView mNameTextView, mAddrTextView, mEmailTextView;
 	private ListView mPhoneListView, mImListView;
@@ -62,13 +55,12 @@ public class DetailActivity extends BaseActivity {
 		mPhoneList.clear();
 		mPhoneList.addAll(mContact.getPhones());
 		mImList.clear();
-		mPhoneList.addAll(mContact.getIms());
+		mImList.addAll(mContact.getIms());
 		// Log.v("zhouyezi", "mPhoneListSize:"+mPhoneList.size());
 		notifyDatasetChanged();
 	}
 
 	private void findView() {
-		mScrollView = (ScrollView) findViewById(R.id.activity_detail_scrollView);
 		mDelBtn = (ImageButton) findViewById(R.id.activity_detail_delBtn);
 		mNameTextView = (TextView) findViewById(R.id.activity_detail_name);
 		mAddrTextView = (TextView) findViewById(R.id.activity_detail_address);
@@ -122,8 +114,16 @@ public class DetailActivity extends BaseActivity {
 		@Override
 		public void onClick(DialogInterface arg0, int arg1) {
 			ContactBussiness cb = new ContactBussiness();
-			cb.deleteContact(DetailActivity.this, mContact);
-			DetailActivity.this.finish();
+			cb.deleteContact(DetailActivity.this, mContact,
+					new DataBaseListener() {
+
+						@Override
+						public void onSuccess() {
+							DetailActivity.this.finish();
+							super.onSuccess();
+						}
+
+					});
 
 		}
 	};
