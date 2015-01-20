@@ -1,18 +1,21 @@
 package com.ruanko.contactbook;
 
 import android.app.ActionBar;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.TextView;
 
 public class BaseActivity extends FragmentActivity {
 	private ActionBar mActionBar;
-	private MenuItem mSearchItem, mRightItem;
+	protected MenuItem mSearchItem;
+	private MenuItem mRightItem;
 	private onSearchViewTextChangeListener mSearchViewChangeListener;
 	private OnRightBtnClickListener mRightBtnClickListener;
 
@@ -33,8 +36,8 @@ public class BaseActivity extends FragmentActivity {
 	public void hideDisplayHomeAsUpBtn() {
 		mActionBar.setDisplayHomeAsUpEnabled(false);
 	}
-	
-	public void hideSearchBtn(){
+
+	public void hideSearchBtn() {
 		mSearchItem.setVisible(false);
 	}
 
@@ -64,7 +67,7 @@ public class BaseActivity extends FragmentActivity {
 			if (mRightBtnClickListener != null) {
 				mRightBtnClickListener.onClick(item);
 			}
-		
+
 			break;
 		case android.R.id.home:
 			finish();
@@ -90,7 +93,12 @@ public class BaseActivity extends FragmentActivity {
 	}
 
 	private void initMenu() {
-		SearchView searchView = (SearchView) mSearchItem.getActionView();
+		SearchView searchView = (SearchView) MenuItemCompat
+				.getActionView(mSearchItem);
+		int id = searchView.getContext().getResources()
+				.getIdentifier("android:id/search_src_text", null, null);
+		TextView textView = (TextView) searchView.findViewById(id);
+		textView.setTextColor(getResources().getColor(R.color.grey_middle));
 		searchView.setOnQueryTextListener(searchViewChangeListener);
 	}
 
