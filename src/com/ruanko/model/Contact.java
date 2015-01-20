@@ -30,7 +30,7 @@ public class Contact implements ContactItemInterface, Serializable {
 	private String namePinyin;
 
 	public Contact() {
-		this(null, null, null, null, null, null, null);
+		this(null, null, null, null, null, null, null,null);
 	}
 
 	public String getContactId() {
@@ -106,10 +106,12 @@ public class Contact implements ContactItemInterface, Serializable {
 	}
 
 	public Contact(String contactId, String name, ArrayList<Phone> phones,
-			String avatar, String addr, String email, String groupName) {
+			ArrayList<Im> ims, String avatar, String addr, String email,
+			String groupName) {
 		this.contactId = contactId;
 		this.name = name;
 		this.phones = phones;
+		this.ims = ims;
 		this.avatar = avatar;
 		this.addr = addr;
 		this.email = email;

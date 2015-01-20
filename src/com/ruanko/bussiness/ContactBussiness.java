@@ -85,11 +85,12 @@ public class ContactBussiness {
 						.withValue(
 								ContactsContract.Data.MIMETYPE,
 								ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE)
-						.withValue(ContactsContract.CommonDataKinds.Im.DATA,
+						.withValue(ContactsContract.CommonDataKinds.Im.DATA1,
 								im.getAccount())
-						.withValue(ContactsContract.CommonDataKinds.Im.PROTOCOL, ImConstant.getType(im))
-						.withValue(ContactsContract.CommonDataKinds.Im.TYPE,
-								ContactsContract.CommonDataKinds.Im.TYPE_HOME);
+						.withValue(ContactsContract.CommonDataKinds.Im.DATA2,
+								ContactsContract.CommonDataKinds.Im.TYPE_HOME)
+						.withValue(ContactsContract.CommonDataKinds.Im.DATA5,
+								ImConstant.getType(im));
 				if (ImConstant.getType(im) == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
 					opIm.withValue(
 							ContactsContract.CommonDataKinds.Im.CUSTOM_PROTOCOL,

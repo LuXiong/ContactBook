@@ -34,7 +34,7 @@ import com.ruanko.model.Phone;
 
 public class CreateContactActivity extends BaseActivity {
 	public final static String EXTRA_INPUT = "contact";
-	
+
 	private final static int STATE_CREATE = 0;
 	private final static int STATE_EDIT = 1;
 
@@ -49,7 +49,7 @@ public class CreateContactActivity extends BaseActivity {
 	private String mName, mEmail, mAddr;
 
 	private Contact mContact;
-	
+
 	private int mState = STATE_CREATE;
 
 	@Override
@@ -101,9 +101,10 @@ public class CreateContactActivity extends BaseActivity {
 		setOnRightBtnClickListener(new FinishClickListener());
 		notifyDataSetChanged();
 	}
+
 	private void loadData() {
 		mContact = (Contact) getIntent().getSerializableExtra(EXTRA_INPUT);
-		if(mContact!=null){
+		if (mContact != null) {
 			mPhoneList.clear();
 			mPhoneList.addAll(mContact.getPhones());
 			mImList.clear();
@@ -112,6 +113,7 @@ public class CreateContactActivity extends BaseActivity {
 			notifyDataSetChanged();
 		}
 	}
+
 	private void notifyDataSetChanged() {
 		mPhoneAdapter.notifyDataSetChanged();
 		Utils.setListViewHeightBasedOnChildrenWithFooterHight(this,
@@ -209,8 +211,9 @@ public class CreateContactActivity extends BaseActivity {
 				}
 			}
 			final Contact contact = new Contact(null, mNameEditText.getText()
-					.toString(), phoneList, null, mAddrEditText.getText()
-					.toString(), mEmailEditText.getText().toString(), null);
+					.toString(), phoneList, imList, null, mAddrEditText
+					.getText().toString(), mEmailEditText.getText().toString(),
+					null);
 			ContactBussiness contactBussiness = new ContactBussiness();
 			contactBussiness.createNewContact(CreateContactActivity.this,
 					contact, new DataBaseListener() {
@@ -233,7 +236,6 @@ public class CreateContactActivity extends BaseActivity {
 
 					});
 		}
-
 	}
 
 	@Override
