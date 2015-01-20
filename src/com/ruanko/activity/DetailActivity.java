@@ -3,9 +3,12 @@ package com.ruanko.activity;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract.DeletedContacts;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +23,7 @@ import android.widget.TextView;
 import com.ruanko.adapter.ContactListAdapter;
 import com.ruanko.adapter.ImAdapter;
 import com.ruanko.adapter.PhoneAdapter;
+import com.ruanko.bussiness.ContactBussiness;
 import com.ruanko.common.ContactItemInterface;
 import com.ruanko.common.NameTypeInterface;
 import com.ruanko.common.Utils;
@@ -94,7 +98,7 @@ public class DetailActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				new AlertDialog.Builder(DetailActivity.this).setTitle("确认")
-						.setMessage("确定吗？").setPositiveButton("是", null)// 添加删除功能或者不改变
+						.setMessage("确定吗？").setPositiveButton("是", l)// 添加删除功能或者不改变
 						.setNegativeButton("否", null).show();
 
 			}
@@ -112,6 +116,17 @@ public class DetailActivity extends BaseActivity {
 			}
 		});
 	}
+
+	private DialogInterface.OnClickListener l = new DialogInterface.OnClickListener() {
+
+		@Override
+		public void onClick(DialogInterface arg0, int arg1) {
+			ContactBussiness cb = new ContactBussiness();
+			cb.deleteContact(DetailActivity.this, mContact);
+			DetailActivity.this.finish();
+
+		}
+	};
 
 	private void notifyDatasetChanged() {
 		if (mContact != null) {
@@ -132,7 +147,7 @@ public class DetailActivity extends BaseActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
-		setRightTitle("编辑");
+		setRightResource(R.drawable.item_edit);
 		hideSearchBtn();
 		return result;
 	}

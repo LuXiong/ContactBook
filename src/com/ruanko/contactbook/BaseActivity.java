@@ -85,6 +85,7 @@ public class BaseActivity extends FragmentActivity {
 
 	private void findMenu(Menu menu) {
 		mSearchItem = menu.findItem(R.id.action_bar_right_item_search);
+		mSearchItem.setIcon(R.drawable.item_menu_search);
 		mRightItem = menu.findItem(R.id.action_bar_right_item);
 	}
 

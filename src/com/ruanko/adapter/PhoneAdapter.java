@@ -26,6 +26,7 @@ public class PhoneAdapter extends BaseAdapter {
 
 	private ArrayList<NameTypeInterface> mPhonesList;
 	private Context mContext;
+	String phoneNumber;
 
 	public PhoneAdapter(ArrayList<NameTypeInterface> mPhonesList,
 			Context mContext) {
@@ -62,6 +63,7 @@ public class PhoneAdapter extends BaseAdapter {
 		}
 		holder.typeView.setText(item.getModelType());
 		holder.stringView.setText(item.getModelName());
+		phoneNumber = item.getModelName();
 		return convertView;
 
 	}
@@ -89,7 +91,6 @@ public class PhoneAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View v) {
-			String phoneNumber = v.findViewById(R.id.activity_detail_item_string_value).toString();
 			Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
 					+ phoneNumber));
 			mContext.startActivity(intent);
@@ -101,11 +102,10 @@ public class PhoneAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View v) {
-			String phoneNumber = "";
 			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:"
 					+ phoneNumber));//
 			intent.setType("vnd.android-dir/mms-sms");
-			// intent.setData(Uri.parse("content://mms-sms/conversations/"));//此为号码
+			intent.setData(Uri.parse("content:"+phoneNumber));//此为号码
 			mContext.startActivity(intent);
 		}
 
