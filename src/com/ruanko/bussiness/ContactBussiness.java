@@ -436,8 +436,13 @@ public class ContactBussiness {
 			id = cursor
 					.getString(cursor
 							.getColumnIndex(android.provider.ContactsContract.Contacts._ID));
+			Cursor rawCursor = contentResolver
+					.query(android.provider.ContactsContract.RawContacts.CONTENT_URI,
+							new String[] { android.provider.ContactsContract.RawContacts._ID },
+							null, null, null);
 			Contact contact = new Contact();
-			contact.setContactId(id);
+			contact.setContactId(rawCursor.getString(rawCursor
+					.getColumnIndex(android.provider.ContactsContract.RawContacts._ID)));
 			ArrayList<Phone> phones = new ArrayList<Phone>();
 			ArrayList<Im> ims = new ArrayList<Im>();
 			Uri uri = ContentUris.withAppendedId(
