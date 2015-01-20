@@ -1,13 +1,17 @@
 package com.ruanko.model;
+
 import java.io.Serializable;
 
-public class Im implements Serializable{
+import com.ruanko.common.NameTypeInterface;
+
+public class Im implements Serializable, NameTypeInterface {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 945594020709374261L;
 	private String account;
 	private String type;
+	private String id;
 
 	public String getAccount() {
 		return account;
@@ -25,6 +29,18 @@ public class Im implements Serializable{
 		this.type = type;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
 		return "Im [account=" + account + ", type=" + type + "]";
@@ -38,5 +54,15 @@ public class Im implements Serializable{
 		super();
 		this.account = account;
 		this.type = type;
+	}
+
+	@Override
+	public String getModelName() {
+		return this.account;
+	}
+
+	@Override
+	public String getModelType() {
+		return this.type;
 	}
 }

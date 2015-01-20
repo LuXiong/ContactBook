@@ -1,4 +1,4 @@
-package com.ruanko.control;
+package com.ruanko.common;
 
 public interface ContactItemInterface {
 

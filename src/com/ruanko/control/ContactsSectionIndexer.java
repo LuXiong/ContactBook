@@ -3,6 +3,8 @@ package com.ruanko.control;
 import java.util.Arrays;
 import java.util.List;
 
+import com.ruanko.common.ContactItemInterface;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.SectionIndexer;

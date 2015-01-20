@@ -63,7 +63,7 @@ public class UserAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	private final class ViewCache{
+	public final class ViewCache{
 		public TextView nameView;
 	}
 }

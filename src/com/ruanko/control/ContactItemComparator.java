@@ -2,6 +2,8 @@ package com.ruanko.control;
 
 import java.util.Comparator;
 
+import com.ruanko.common.ContactItemInterface;
+
 public class ContactItemComparator implements Comparator<ContactItemInterface> {
 
 	@Override

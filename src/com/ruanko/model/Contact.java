@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.io.Serializable;
 
 import com.j256.ormlite.table.DatabaseTable;
-import com.ruanko.control.ContactItemInterface;
+import com.ruanko.common.ContactItemInterface;
 import com.ruanko.pinyin.PinYin;
 
-
-public class Contact implements ContactItemInterface,Serializable {
-
+public class Contact implements ContactItemInterface, Serializable {
 
 	private String contactId;
 
@@ -23,7 +21,7 @@ public class Contact implements ContactItemInterface,Serializable {
 
 	private String addr;
 
-	private ArrayList<String> emails;
+	private String email;
 
 	private String groupName;
 
@@ -32,7 +30,7 @@ public class Contact implements ContactItemInterface,Serializable {
 	private String namePinyin;
 
 	public Contact() {
-		this(null, null, null, null, null, null, null);
+		this(null, null, null, null, null, null, null,null);
 	}
 
 	public String getContactId() {
@@ -87,12 +85,12 @@ public class Contact implements ContactItemInterface,Serializable {
 		this.addr = addr;
 	}
 
-	public ArrayList<String> getEmails() {
-		return emails;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmails(ArrayList<String> emails) {
-		this.emails = emails;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getGroupName() {
@@ -108,14 +106,15 @@ public class Contact implements ContactItemInterface,Serializable {
 	}
 
 	public Contact(String contactId, String name, ArrayList<Phone> phones,
-			String avatar, String addr, ArrayList<String> emails,
+			ArrayList<Im> ims, String avatar, String addr, String email,
 			String groupName) {
 		this.contactId = contactId;
 		this.name = name;
 		this.phones = phones;
+		this.ims = ims;
 		this.avatar = avatar;
 		this.addr = addr;
-		this.emails = emails;
+		this.email = email;
 		this.groupName = groupName;
 		this.ids = new DataId();
 	}
@@ -124,11 +123,11 @@ public class Contact implements ContactItemInterface,Serializable {
 	public String toString() {
 		return "Contact [contactId=" + contactId + ", name=" + name
 				+ ", phones=" + phones + ", ims=" + ims + ", avatar=" + avatar
-				+ ", addr=" + addr + ", emails=" + emails + ", groupName="
+				+ ", addr=" + addr + ", emails=" + email + ", groupName="
 				+ groupName + "]";
 	}
 
-	public class DataId implements Serializable{
+	public class DataId implements Serializable {
 		/**
 		 * 
 		 */
@@ -139,12 +138,11 @@ public class Contact implements ContactItemInterface,Serializable {
 		private String group;
 		private String addr;
 		private ArrayList<String> phones;
-		private ArrayList<String> emails;
+		private String email;
 		private ArrayList<String> ims;
 
 		public DataId() {
 			phones = new ArrayList<String>();
-			emails = new ArrayList<String>();
 			ims = new ArrayList<String>();
 		}
 
@@ -188,12 +186,12 @@ public class Contact implements ContactItemInterface,Serializable {
 			this.phones = phones;
 		}
 
-		public ArrayList<String> getEmails() {
-			return emails;
+		public String getEmail() {
+			return email;
 		}
 
-		public void setEmails(ArrayList<String> emails) {
-			this.emails = emails;
+		public void setEmail(String email) {
+			this.email = email;
 		}
 
 		public ArrayList<String> getIms() {

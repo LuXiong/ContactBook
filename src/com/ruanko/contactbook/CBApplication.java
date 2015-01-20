@@ -23,13 +23,7 @@ public class CBApplication extends Application {
 		ArrayList<Contact> contacts = ub
 				.fetchContactInformation(getApplicationContext());
 		for (Contact contact : contacts) {
-			Log.v("xionglu", contact.toString());
-			if (contact != null) {
-				ArrayList<Phone> phones = contact.getPhones();
-				for (Phone phone : phones) {
-					Log.v("xionglu", phone.toString());
-				}
-			}
+			Log.i("xionglu", contact.toString());
 		}
 		super.onCreate();
 	}
