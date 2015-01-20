@@ -86,9 +86,10 @@
                 android:id="@+id/activity_detail_delBtn"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginLeft="80dp"
                 android:background="#00000000"
-                android:src="@drawable/delete1" />
+                android:src="@drawable/item_detail_delete" />
         </LinearLayout>
     </LinearLayout>
 

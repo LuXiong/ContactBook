@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean result = super.onCreateOptionsMenu(menu);
-		setRightTitle("新建");
+		setRightResource(R.drawable.item_add);
 		setTitle("联系人");
 		return result;
 	}
