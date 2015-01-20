@@ -1,92 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_detail_scrollView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
 
-    <LinearLayout
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#cccccc" />
+
+    <ScrollView
+        android:id="@+id/activity_detail_scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="120dp" />
+        android:background="@color/white" >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
 
-            <TextView
-                android:id="@+id/activity_detail_name"
-                android:layout_width="fill_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="center_vertical"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/activity_detail_name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="40dp"
+                    android:gravity="top"
+                    android:hint="姓名"
+                    android:textColor="@color/grey_middle"
+                    android:textSize="20dp" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:background="#cccccc" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/activity_detail_phone_listView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="10dp"
-                android:gravity="top"
-                android:hint="姓名"
-                android:textColor="@color/grey_middle"
-                android:textSize="20dp" />
-        </LinearLayout>
+                android:scrollbars="none" >
+            </ListView>
 
-        <ListView
-            android:id="@+id/activity_detail_phone_listView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none" >
-        </ListView>
-
-        <ListView
-            android:id="@+id/activity_detail_Im_listView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:scrollbars="none" >
-        </ListView>
-
-        <TextView
-            android:id="@+id/activity_detail_email"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:gravity="top"
-            android:hint="E-mail"
-            android:textColor="@color/grey_middle" />
-
-        <TextView
-            android:id="@+id/activity_detail_address"
-            android:layout_width="fill_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:gravity="top"
-            android:hint="地址"
-            android:textColor="@color/grey_middle" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal" >
-
-            <ImageButton
-                android:id="@+id/activity_detail_delBtn"
-                android:layout_width="150dp"
+            <ListView
+                android:id="@+id/activity_detail_Im_listView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:layout_marginTop="13dp"
-                android:background="#00000000"
-                android:src="@drawable/item_detail_delete" />
-        </LinearLayout>
-    </LinearLayout>
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="30dp"
+                android:scrollbars="none" >
+            </ListView>
 
-</ScrollView>
+            <LinearLayout
+                android:id="@+id/activity_detail_email_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/activity_detail_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="top"
+                    android:textColor="@color/grey_middle" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginBottom="10dp"
+                    android:background="#cccccc" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/activity_detail_address_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/activity_detail_address"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:gravity="top"
+                    android:textColor="@color/grey_middle" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_marginBottom="10dp"
+                    android:background="#cccccc" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>
