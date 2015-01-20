@@ -230,7 +230,7 @@ public class CreateContactActivity extends BaseActivity {
 								CreateContactActivity.this.finish();
 								Intent intent = new Intent(
 										CreateContactActivity.this,
-										DetailActivity.class);
+										MainActivity.class);
 								intent.putExtra(DetailActivity.EXTRA_INPUT,
 										contact);
 								startActivity(intent);
@@ -268,10 +268,7 @@ public class CreateContactActivity extends BaseActivity {
 														.finish();
 												Intent intent = new Intent(
 														CreateContactActivity.this,
-														DetailActivity.class);
-												intent.putExtra(
-														DetailActivity.EXTRA_INPUT,
-														contact);
+														MainActivity.class);
 												startActivity(intent);
 											}
 

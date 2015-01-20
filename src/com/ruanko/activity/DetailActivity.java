@@ -99,7 +99,7 @@ public class DetailActivity extends BaseActivity {
 						CreateContactActivity.class);
 				intent.putExtra(CreateContactActivity.EXTRA_INPUT, mContact);
 				startActivity(intent);
-
+				DetailActivity.this.finish();
 			}
 		});
 	}

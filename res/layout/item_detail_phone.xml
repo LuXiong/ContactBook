@@ -26,9 +26,11 @@
 
             <TextView
                 android:id="@+id/activity_detail_item_string_value"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:ellipsize="end"
+                android:text="+8613297988492"
                 android:textColor="@color/grey_middle" />
         </LinearLayout>
 
@@ -36,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
             android:orientation="horizontal" >
 

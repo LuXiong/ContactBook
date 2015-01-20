@@ -29,9 +29,7 @@ public class ContactBussiness {
 		listener.onStart();
 		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
 		ContentProviderOperation.Builder opRawContact = ContentProviderOperation
-				.newDelete(ContentUris.withAppendedId(
-						ContactsContract.RawContacts.CONTENT_URI,
-						Long.valueOf(contact.getContactId())));
+				.newDelete(ContentUris.withAppendedId(ContactsContract.RawContacts.CONTENT_URI,Long.valueOf(contact.getContactId())));
 		ops.add(opRawContact.build());
 		try {
 			context.getContentResolver().applyBatch(ContactsContract.AUTHORITY,
@@ -130,9 +128,9 @@ public class ContactBussiness {
 							ContactsContract.Data.RAW_CONTACT_ID, 0)
 					.withValue(
 							ContactsContract.Data.MIMETYPE,
-							ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
+							ContactsContract.CommonDataKinds.SipAddress.CONTENT_ITEM_TYPE)
 					.withValue(
-							ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS,
+							ContactsContract.CommonDataKinds.SipAddress.SIP_ADDRESS,
 							contact.getAddr());
 
 			ops.add(opAddr.build());
@@ -210,65 +208,60 @@ public class ContactBussiness {
 			}
 		}
 		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
-		// ContentProviderOperation.Builder opRawContact =
-		// ContentProviderOperation
-		// .newInsert(ContactsContract.RawContacts.CONTENT_URI)
-		// .withValue(ContactsContract.Data.RAW_CONTACT_ID,
-		// contact.getContactId())
-		// .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
-		// .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null);
-		// ops.add(opRawContact.build());
+//		ContentProviderOperation.Builder opRawContact = ContentProviderOperation
+//				.newInsert(ContactsContract.RawContacts.CONTENT_URI)
+//				.withValue(ContactsContract.Data.RAW_CONTACT_ID,
+//						 contact.getContactId())
+//				.withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+//				.withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null);
+//		ops.add(opRawContact.build());
 
-		// if (insertPhones != null) {
-		// for (int i = 0; i < insertPhones.size(); i++) {
-		// Phone phone = insertPhones.get(i);
-		// ContentProviderOperation.Builder opInsertPhone =
-		// ContentProviderOperation
-		// .newInsert(ContactsContract.Data.CONTENT_URI)
-		// .withSelectionBackReference(selectionArgIndex,
-		// previousResult)withValue(
-		// ContactsContract.Data.RAW_CONTACT_ID, 1)
-		// .withValue(
-		// ContactsContract.CommonDataKinds.Phone.NUMBER,
-		// phone.getNumber())
-		// .withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
-		// PhoneConstant.getType(phone));
-		// if (PhoneConstant.getType(phone) == CommonDataKinds.Phone.TYPE_OTHER)
-		// {
-		// opInsertPhone.withValue(
-		// ContactsContract.CommonDataKinds.Phone.LABEL,
-		// phone.getType());
-		// }
-		// ops.add(opInsertPhone.build());
-		// }
-		// }
-		// if (insertIms != null) {
-		// for (int i = 0; i < insertIms.size(); i++) {
-		// Im im = insertIms.get(i);
-		// ContentProviderOperation.Builder opInsertIm =
-		// ContentProviderOperation
-		// .newInsert(ContactsContract.Data.CONTENT_URI)
-		// .withValueBackReference(
-		// ContactsContract.Data.RAW_CONTACT_ID, 0)
-		// .withValue(
-		// ContactsContract.Data.MIMETYPE,
-		// ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE)
-		// .withValue(ContactsContract.CommonDataKinds.Im.DATA,
-		// im.getAccount())
-		// .withValue(ContactsContract.CommonDataKinds.Im.TYPE,
-		// ContactsContract.CommonDataKinds.Im.TYPE_HOME)
-		// .withValue(
-		// ContactsContract.CommonDataKinds.Im.PROTOCOL,
-		// ImConstant.getType(im));
-		// if (ImConstant.getType(im) == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
-		// opInsertIm
-		// .withValue(
-		// ContactsContract.CommonDataKinds.Im.CUSTOM_PROTOCOL,
-		// im.getType());
-		// }
-		// ops.add(opInsertIm.build());
-		// }
-		// }
+//		if (insertPhones != null) {
+//			for (int i = 0; i < insertPhones.size(); i++) {
+//				Phone phone = insertPhones.get(i);
+//				ContentProviderOperation.Builder opInsertPhone = ContentProviderOperation
+//						.newInsert(ContactsContract.Data.CONTENT_URI)
+//						.withSelectionBackReference(selectionArgIndex, previousResult)withValue(
+//								ContactsContract.Data.RAW_CONTACT_ID, 1)
+//						.withValue(
+//								ContactsContract.CommonDataKinds.Phone.NUMBER,
+//								phone.getNumber())
+//						.withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
+//								PhoneConstant.getType(phone));
+//				if (PhoneConstant.getType(phone) == CommonDataKinds.Phone.TYPE_OTHER) {
+//					opInsertPhone.withValue(
+//							ContactsContract.CommonDataKinds.Phone.LABEL,
+//							phone.getType());
+//				}
+//				ops.add(opInsertPhone.build());
+//			}
+//		}
+//		if (insertIms != null) {
+//			for (int i = 0; i < insertIms.size(); i++) {
+//				Im im = insertIms.get(i);
+//				ContentProviderOperation.Builder opInsertIm = ContentProviderOperation
+//						.newInsert(ContactsContract.Data.CONTENT_URI)
+//						.withValueBackReference(
+//								ContactsContract.Data.RAW_CONTACT_ID, 0)
+//						.withValue(
+//								ContactsContract.Data.MIMETYPE,
+//								ContactsContract.CommonDataKinds.Im.CONTENT_ITEM_TYPE)
+//						.withValue(ContactsContract.CommonDataKinds.Im.DATA,
+//								im.getAccount())
+//						.withValue(ContactsContract.CommonDataKinds.Im.TYPE,
+//								ContactsContract.CommonDataKinds.Im.TYPE_HOME)
+//						.withValue(
+//								ContactsContract.CommonDataKinds.Im.PROTOCOL,
+//								ImConstant.getType(im));
+//				if (ImConstant.getType(im) == CommonDataKinds.Im.PROTOCOL_CUSTOM) {
+//					opInsertIm
+//							.withValue(
+//									ContactsContract.CommonDataKinds.Im.CUSTOM_PROTOCOL,
+//									im.getType());
+//				}
+//				ops.add(opInsertIm.build());
+//			}
+//		}
 		// if (updataPhones != null) {
 		// for (int i = 0; i < updataPhones.size(); i++) {
 		// Phone phone = updataPhones.get(i);
@@ -436,13 +429,8 @@ public class ContactBussiness {
 			id = cursor
 					.getString(cursor
 							.getColumnIndex(android.provider.ContactsContract.Contacts._ID));
-			Cursor rawCursor = contentResolver
-					.query(android.provider.ContactsContract.RawContacts.CONTENT_URI,
-							new String[] { android.provider.ContactsContract.RawContacts._ID },
-							null, null, null);
 			Contact contact = new Contact();
-			contact.setContactId(rawCursor.getString(rawCursor
-					.getColumnIndex(android.provider.ContactsContract.RawContacts._ID)));
+			contact.setContactId(id);
 			ArrayList<Phone> phones = new ArrayList<Phone>();
 			ArrayList<Im> ims = new ArrayList<Im>();
 			Uri uri = ContentUris.withAppendedId(
