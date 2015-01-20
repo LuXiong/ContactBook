@@ -18,6 +18,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.ruanko.adapter.ContactListAdapter;
+import com.ruanko.adapter.ImAdapter;
 import com.ruanko.adapter.PhoneAdapter;
 import com.ruanko.common.ContactItemInterface;
 import com.ruanko.common.NameTypeInterface;
@@ -38,7 +39,8 @@ public class DetailActivity extends BaseActivity {
 			mEmailTextView;
 	private ListView mPhoneListView,mImListView;
 	
-	private PhoneAdapter mPhoneAdapter,mImAdapter;
+	private PhoneAdapter mPhoneAdapter;
+	private ImAdapter mImAdapter;
 	
 	private ArrayList<NameTypeInterface> mPhoneList,mImList;
 
@@ -56,7 +58,9 @@ public class DetailActivity extends BaseActivity {
 				DetailActivity.EXTRA_INPUT);
 		mPhoneList.clear();
 		mPhoneList.addAll(mContact.getPhones());
-		Log.v("zhouyezi", "mPhoneListSize:"+mPhoneList.size());
+		mImList.clear();
+		mPhoneList.addAll(mContact.getIms());
+		//Log.v("zhouyezi", "mPhoneListSize:"+mPhoneList.size());
 		notifyDatasetChanged();
 	}
 
@@ -67,7 +71,7 @@ public class DetailActivity extends BaseActivity {
 		mAddrTextView = (TextView) findViewById(R.id.activity_detail_address);
 		mEmailTextView = (TextView) findViewById(R.id.activity_detail_email);
 	    mPhoneListView = (ListView) findViewById(R.id.activity_detail_phone_listView);
-	//	mImListView = (ListView) findViewById(R.id.activity_detail_Im_listView);
+		mImListView = (ListView) findViewById(R.id.activity_detail_Im_listView);
 	}
 
 	private void initView() {
@@ -77,14 +81,12 @@ public class DetailActivity extends BaseActivity {
 		mPhoneListView.setAdapter(mPhoneAdapter);
 		mPhoneListView.setFastScrollEnabled(true);
 	
-		/**
+	
 		mImList = new ArrayList<NameTypeInterface>();
-		mImAdapter = new PhoneAdapter(mImList,this);
+		mImAdapter = new ImAdapter(mImList,this);
 		mImListView.setAdapter(mImAdapter);
 		mImListView.setFastScrollEnabled(true);
-**/
 		
-	//	Utils.setListViewHeightBasedOnChildren(mImListView);
 		bindEvent();
 	}
 
@@ -116,9 +118,10 @@ public class DetailActivity extends BaseActivity {
 			mNameTextView.setText(mContact.getName());
 			mAddrTextView.setText(mContact.getAddr());
 			mEmailTextView.setText(mContact.getEmail());
-			
 			mPhoneAdapter.notifyDataSetChanged();
+			mImAdapter.notifyDataSetChanged();
 			Utils.setListViewHeightBasedOnChildren(mPhoneListView);
+			Utils.setListViewHeightBasedOnChildren(mImListView);
 			/**
 			mImAdapter.notifyDataSetChanged();
 			mImListView.setAdapter(mImAdapter);

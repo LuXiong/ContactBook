@@ -54,7 +54,7 @@ public class PhoneAdapter extends BaseAdapter {
 		ViewHolder holder;
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(mContext);
-			convertView = inflater.inflate(R.layout.item_detail, null);
+			convertView = inflater.inflate(R.layout.item_detail_phone, null);
 			holder = new ViewHolder(convertView);
 			convertView.setTag(holder);
 		} else {
@@ -89,7 +89,7 @@ public class PhoneAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View v) {
-			String phoneNumber = "15072334868";
+			String phoneNumber = v.findViewById(R.id.activity_detail_item_string_value).toString();
 			Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
 					+ phoneNumber));
 			mContext.startActivity(intent);
@@ -101,7 +101,7 @@ public class PhoneAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View v) {
-			String phoneNumber = "15072334868";
+			String phoneNumber = "";
 			Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("tel:"
 					+ phoneNumber));//
 			intent.setType("vnd.android-dir/mms-sms");
