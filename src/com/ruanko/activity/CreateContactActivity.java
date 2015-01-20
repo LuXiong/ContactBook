@@ -46,7 +46,6 @@ public class CreateContactActivity extends BaseActivity {
 
 	private ArrayList<NameTypeInterface> mPhoneList;
 	private ArrayList<NameTypeInterface> mImList;
-	private String mName, mEmail, mAddr;
 
 	private Contact mContact;
 
@@ -99,6 +98,11 @@ public class CreateContactActivity extends BaseActivity {
 		mImAdapter
 				.setOnAccountEditTextChangedListener(new ImEditChangeListener());
 		setOnRightBtnClickListener(new FinishClickListener());
+		if (mContact != null && mState == STATE_EDIT) {
+			mNameEditText.setText(mContact.getName());
+			mEmailEditText.setText(mContact.getEmail());
+			mAddrEditText.setText(mContact.getAddr());
+		}
 		notifyDataSetChanged();
 	}
 
@@ -214,27 +218,33 @@ public class CreateContactActivity extends BaseActivity {
 					.toString(), phoneList, imList, null, mAddrEditText
 					.getText().toString(), mEmailEditText.getText().toString(),
 					null);
-			ContactBussiness contactBussiness = new ContactBussiness();
-			contactBussiness.createNewContact(CreateContactActivity.this,
-					contact, new DataBaseListener() {
+			if (mState == STATE_CREATE) {
+				ContactBussiness contactBussiness = new ContactBussiness();
+				contactBussiness.updateContact(CreateContactActivity.this,
+						mContact, contact, new DataBaseListener() {
 
-						@Override
-						public void onSuccess() {
-							CreateContactActivity.this.finish();
-							Intent intent = new Intent(
-									CreateContactActivity.this,
-									DetailActivity.class);
-							intent.putExtra(DetailActivity.EXTRA_INPUT, contact);
-						}
+							@Override
+							public void onSuccess() {
+								CreateContactActivity.this.finish();
+								Intent intent = new Intent(
+										CreateContactActivity.this,
+										DetailActivity.class);
+								intent.putExtra(DetailActivity.EXTRA_INPUT,
+										contact);
+							}
 
-						@Override
-						public void onFailure(String info) {
-							Toast.makeText(CreateContactActivity.this, info,
-									Toast.LENGTH_LONG).show();
-							super.onFailure(info);
-						}
+							@Override
+							public void onFailure(String info) {
+								Toast.makeText(CreateContactActivity.this,
+										info, Toast.LENGTH_LONG).show();
+								super.onFailure(info);
+							}
 
-					});
+						});
+			}
+			if (mState == STATE_EDIT) {
+
+			}
 		}
 	}
 
@@ -243,7 +253,12 @@ public class CreateContactActivity extends BaseActivity {
 		boolean result = super.onCreateOptionsMenu(menu);
 		setRightTitle("完成");
 		hideSearchBtn();
-		setTitle("新建联系人");
+		if(mState==STATE_CREATE){
+			setTitle("新建联系人");
+		}
+		if(mState==STATE_EDIT){
+			setTitle("编辑联系人");
+		}
 		return result;
 	}
 
