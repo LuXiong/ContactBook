@@ -47,6 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#00000000"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:src="@drawable/item_phone_message_img" />
 
             <ImageButton
@@ -55,6 +57,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:background="#00000000"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:src="@drawable/item_phone_call_img" />
         </LinearLayout>
     </RelativeLayout>

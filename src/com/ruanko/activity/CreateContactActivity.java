@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.ruanko.adapter.NameTypeEditListAdapter;
 import com.ruanko.adapter.NameTypeEditListAdapter.DeleteItemClickListener;
 import com.ruanko.adapter.NameTypeEditListAdapter.EditTextChangedListener;
+import com.ruanko.adapter.NameTypeEditListAdapter.ItemTypeClickListener;
 import com.ruanko.bussiness.ContactBussiness;
 import com.ruanko.common.ImConstant;
 import com.ruanko.common.NameTypeInterface;
@@ -27,12 +30,15 @@ import com.ruanko.common.PhoneConstant;
 import com.ruanko.common.Utils;
 import com.ruanko.contactbook.BaseActivity;
 import com.ruanko.contactbook.R;
+import com.ruanko.control.dialog.CustomDialog;
+import com.ruanko.control.dialog.DialogBuilder;
 import com.ruanko.listener.DataBaseListener;
 import com.ruanko.model.Contact;
 import com.ruanko.model.Im;
 import com.ruanko.model.Phone;
 
 public class CreateContactActivity extends BaseActivity {
+
 	public final static String EXTRA_INPUT = "contact";
 
 	private final static int STATE_CREATE = 0;
@@ -50,6 +56,7 @@ public class CreateContactActivity extends BaseActivity {
 	private Contact mContact;
 
 	private int mState = STATE_CREATE;
+	private CustomDialog mDialog;
 
 	@Override
 	protected void onCreate(Bundle bundle) {
@@ -94,9 +101,11 @@ public class CreateContactActivity extends BaseActivity {
 				.setOnDelteItemClickListener(new DeletePhoneItemClickListener());
 		mPhoneAdapter
 				.setOnAccountEditTextChangedListener(new PhoneEditChangeListener());
+		mPhoneAdapter.setOnTypeClickListener(new PhoneTypeClickListener());
 		mImAdapter.setOnDelteItemClickListener(new DeleteImItemClickListener());
 		mImAdapter
 				.setOnAccountEditTextChangedListener(new ImEditChangeListener());
+		mImAdapter.setOnTypeClickListener(new ImTypeClickListener());
 		setOnRightBtnClickListener(new FinishClickListener());
 
 		notifyDataSetChanged();
@@ -309,6 +318,58 @@ public class CreateContactActivity extends BaseActivity {
 				// });
 			}
 		}
+	}
+
+	public class PhoneTypeClickListener implements ItemTypeClickListener {
+
+		@Override
+		public void onTypeClick(View v, final int listPosition) {
+			final ArrayList<String> phoneTypeList = PhoneConstant
+					.getTypeArray();
+			DialogBuilder builder = new DialogBuilder();
+			builder.setType(CustomDialog.LIST_DIALOG);
+			builder.setListDialogContent(phoneTypeList);
+			builder.setListItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					((Phone) (mPhoneList.get(listPosition)))
+							.setType(phoneTypeList.get(position));
+					notifyDataSetChanged();
+					mDialog.dismiss();
+				}
+			});
+			mDialog = new CustomDialog(CreateContactActivity.this, builder);
+			mDialog.show();
+		}
+
+	}
+
+	public class ImTypeClickListener implements ItemTypeClickListener {
+
+		@Override
+		public void onTypeClick(View v, final int listPosition) {
+			final ArrayList<String> imTypeList = ImConstant.getTypeArray();
+			DialogBuilder builder = new DialogBuilder();
+
+			builder.setType(CustomDialog.LIST_DIALOG);
+			builder.setListDialogContent(imTypeList);
+			builder.setListItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					((Im) (mImList.get(listPosition))).setType(imTypeList
+							.get(position));
+					notifyDataSetChanged();
+					mDialog.dismiss();
+				}
+			});
+			mDialog = new CustomDialog(CreateContactActivity.this, builder);
+			mDialog.show();
+		}
+
 	}
 
 	@Override

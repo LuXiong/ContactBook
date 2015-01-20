@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.ruanko.common.NameTypeInterface;
 import com.ruanko.contactbook.R;
+import com.ruanko.model.Phone;
 
 public class NameTypeEditListAdapter extends BaseAdapter {
 
@@ -26,6 +27,7 @@ public class NameTypeEditListAdapter extends BaseAdapter {
 	private EditText mEditText;
 	private EditTextChangedListener mAccountEditTextChangedListener;
 	private DeleteItemClickListener mDeleteItemClickListener;
+	private ItemTypeClickListener mTypeClickListener;
 
 	public NameTypeEditListAdapter(ArrayList<NameTypeInterface> list,
 			Context context) {
@@ -73,6 +75,7 @@ public class NameTypeEditListAdapter extends BaseAdapter {
 			holder.deleteImg.setOnClickListener(new DeleteLayoutClickListener(
 					position));
 			holder.typeTextView.setText(item.getModelType());
+			holder.typeTextView.setOnClickListener(new TypeClickListener(position));
 			holder.accountEditText.setText(item.getModelName());
 			holder.accountEditText
 					.addTextChangedListener(new AccountEditTextChanged(position));
@@ -80,6 +83,7 @@ public class NameTypeEditListAdapter extends BaseAdapter {
 
 		return convertView;
 	}
+
 	private void mListEmptyCheck() {
 		if (mList.isEmpty()) {
 			mList.add(new NameTypeInterface() {
@@ -105,6 +109,10 @@ public class NameTypeEditListAdapter extends BaseAdapter {
 
 	public void setOnAccountEditTextChangedListener(EditTextChangedListener l) {
 		this.mAccountEditTextChangedListener = l;
+	}
+
+	public void setOnTypeClickListener(ItemTypeClickListener l) {
+		this.mTypeClickListener = l;
 	}
 
 	public class AccountEditTextChanged implements TextWatcher {
@@ -151,8 +159,21 @@ public class NameTypeEditListAdapter extends BaseAdapter {
 
 	}
 
-	public interface AddItemClickListener {
-		public void addItemClick(View v);
+	public class TypeClickListener implements OnClickListener {
+
+		private int mPosition;
+
+		public TypeClickListener(int position) {
+			this.mPosition = position;
+		}
+
+		@Override
+		public void onClick(View v) {
+			if (mTypeClickListener != null) {
+				mTypeClickListener.onTypeClick(v, mPosition);
+			}
+		}
+
 	}
 
 	public interface DeleteItemClickListener {
@@ -161,6 +182,10 @@ public class NameTypeEditListAdapter extends BaseAdapter {
 
 	public interface EditTextChangedListener {
 		public void editTextChanged(Editable e, int position);
+	}
+
+	public interface ItemTypeClickListener {
+		public void onTypeClick(View v, int position);
 	}
 
 	private class ViewHolder {

@@ -66,6 +66,7 @@ public class MainActivity extends BaseActivity {
 				return true;
 			}
 		});
+		hideDisplayHomeAsUpBtn();
 		return result;
 	}
 
@@ -127,12 +128,19 @@ public class MainActivity extends BaseActivity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			mContactList.get(position);
-			Intent intent = new Intent();
-			intent.setClass(MainActivity.this, DetailActivity.class);
-			intent.putExtra(DetailActivity.EXTRA_INPUT,
-					(Contact) mContactList.get(position));
-			startActivity(intent);
+			Contact contact;
+			if (inSearchMode) {
+				contact = (Contact) mFilterList.get(position);
+			} else {
+				contact = (Contact) mContactList.get(position);
+			}
+			if (contact != null) {
+				Intent intent = new Intent();
+				intent.setClass(MainActivity.this, DetailActivity.class);
+				intent.putExtra(DetailActivity.EXTRA_INPUT, contact);
+				startActivity(intent);
+			}
+
 		}
 
 	}

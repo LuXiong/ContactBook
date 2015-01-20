@@ -128,9 +128,9 @@ public class ContactBussiness {
 							ContactsContract.Data.RAW_CONTACT_ID, 0)
 					.withValue(
 							ContactsContract.Data.MIMETYPE,
-							ContactsContract.CommonDataKinds.SipAddress.CONTENT_ITEM_TYPE)
+							ContactsContract.CommonDataKinds.StructuredPostal.CONTENT_ITEM_TYPE)
 					.withValue(
-							ContactsContract.CommonDataKinds.SipAddress.SIP_ADDRESS,
+							ContactsContract.CommonDataKinds.StructuredPostal.FORMATTED_ADDRESS,
 							contact.getAddr());
 
 			ops.add(opAddr.build());
